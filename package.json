@@ -1,0 +1,38 @@
+{
+  "name": "vuetify-webpack-simple",
+  "description": "Forked webpack simple from official vue docs",
+  "author": "John Leider <john.j.leider@gmail.com>",
+  "private": true,
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development webpack-dev-server --inline --hot --public",
+    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
+  },
+  "dependencies": {
+    "adonis-websocket-client": "^1.0.2",
+    "indicative": "^2.2.1",
+    "vue": "^2.1.6",
+    "vue-i18n": "^6.1.1",
+    "vue-quill-editor": "^2.1.6",
+    "vue-timeago": "^3.3.1"
+  },
+  "devDependencies": {
+    "axios": "^0.16.1",
+    "axios-mock-adapter": "^1.8.1",
+    "buble": "^0.15.1",
+    "buble-loader": "^0.4.0",
+    "cross-env": "^3.0.0",
+    "css-loader": "^0.26.0",
+    "file-loader": "^0.10.0",
+    "mockjs": "^1.0.1-beta3",
+    "style-loader": "^0.13.1",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^2.1.1",
+    "vue-loader": "^11.0.0",
+    "vue-router": "^2.1.1",
+    "vue-template-compiler": "^2.1.6",
+    "vuetify": "git://github.com/vuetifyjs/vuetify.git",
+    "vuex": "^2.3.1",
+    "webpack": "^2.1.0-beta.25",
+    "webpack-dev-server": "^2.1.0-beta.0"
+  }
+}

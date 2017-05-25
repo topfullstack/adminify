@@ -18,7 +18,7 @@ export default {
 
   },
   created() {
-    this.$http.get('/users').then(({data}) => console.log(data))
+    // this.$http.get('/users').then(({data}) => console.log(data))
   }
 }
 </script>

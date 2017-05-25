@@ -1,33 +1,23 @@
-<template>
-  <div>
-    <v-dialog :value="true" persistent>
-      <v-card hover>
-        <v-card-row class="deep-purple darken-1">
-          <v-card-title class="white--text">
-            <div class="text-xs-center"> {{$t('login')}}</div>
-          </v-card-title>
-        </v-card-row>
-        <v-card-row>
-          <v-card-text class="pt-4">
-            <v-form v-model="model" action="login" :fields="fields" @success="onSuccess">
-  
-              <div class="pb-2">
-                <small>{{$t('* indicates required field')}}</small>
-              </div>
-  
-              <div slot="buttons">
-  
-                <v-btn type="submit" class="ma-0" light success>{{$t('login')}}
-                  <v-icon light right>send</v-icon>
-                </v-btn>
-              </div>
-            </v-form>
-          </v-card-text>
-        </v-card-row>
-      </v-card>
-    </v-dialog>
-  </div>
+<template lang="pug">
+div
+  v-dialog(:value='true', persistent='')
+    v-card(hover='', style='background:white')
+      v-card-row.deep-purple.darken-1
+        v-card-title.white--text
+          .text-xs-center  {{$t(&apos;Login&apos;)}}
+      v-card-row
+        v-card-text.pt-4
+          v-form(v-model='model', action='login', :fields='fields', @success='onSuccess')
+            .pb-2
+              small {{$t(&apos;* Indicates required field&apos;)}}
+            div(slot='buttons')
+              v-btn.ma-0(type='submit', light='', success='')
+                v-icon(light='', right='') send
 </template>
+
+<style>
+  
+</style>
 
 <script>
 
@@ -36,12 +26,13 @@ export default {
   data() {
     return {
       model: {
-        username: 'wxs77577',
+        username: 'admin',
         password: '123456'
       },
+      
       fields: {
-        username: { label: this.$t('username') },
-        password: { label: this.$t('password'), type: 'password' }
+        username: { label: 'Username' },
+        password: { label: 'Password', type: 'password' }
       },
       show: true
     }

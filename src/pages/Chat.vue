@@ -20,11 +20,11 @@
         </v-list-item>
       </template>
     </v-list>
-    <v-row>
+    <v-layout>
       <v-col xs12 xl6>
         <v-text-field v-model="message" label="Type your message and press Enter to send..." @keyup.enter.native="send"></v-text-field>
       </v-col>
-    </v-row>
+    </v-layout>
   </v-container>
 </template>
 <script>

@@ -14,7 +14,7 @@ import Vuetify from 'vuetify'
 Vue.use(Vuetify)
 import './http'
 
-import 'vuetify/src/stylus/main.styl'
+// import 'vuetify/src/stylus/main.styl'
 import 'src/styles/main.styl'
 
 import App from './App.vue'
@@ -50,8 +50,6 @@ new Vue({
     
   },
   created() {
-    this.$http.get('/users/1').then(({data}) => console.log(data))
-    global.$t = this.$t
     this.$store.commit('setMenu', menu)
     this.$store.dispatch('checkPageTitle', this.$route.path)
     this.$store.dispatch('checkAuth')

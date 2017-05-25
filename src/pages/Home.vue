@@ -1,10 +1,7 @@
-<template>
-  <div class="text-center">
-    
-    <div class="">
-      <v-alert success :value="true" @click.native="$showModal('ok', 'text')">Hope you will love me!</v-alert>
-    </div>
-  </div>
+<template lang="pug">
+.text-center
+  v-card
+    v-card-text Slient is Gold ?
 </template>
 
 <script>

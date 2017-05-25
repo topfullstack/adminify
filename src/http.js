@@ -3,7 +3,7 @@ import axios from 'axios'
 import config from './config'
 
 //enable mock
-import './mock'
+// import './mock'
 
 
 var http = axios.create({

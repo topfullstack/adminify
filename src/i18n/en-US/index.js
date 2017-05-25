@@ -1,3 +1,6 @@
 export default {
-  login: 'Login'
+  "Search": "Search",
+  "Create ": "Create ",
+  "Submit": "Submit",
+  "Field should be unique.": "Field should be unique.",
 }

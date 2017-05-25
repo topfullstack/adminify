@@ -21,25 +21,26 @@ const router = new Router({
   scrollBehavior: () => ({ y: 0 }),
   routes: [
     route('/login', 'Login', 'login'),
-    route('/404', '404', '404'),
+    route('/error', 'Error', 'error'),
 
     //path, file(*.vue), name, children
     
     route('/', 'Main', null, [
       route('/', 'Home', 'home'),
-      route('/crud/:resource', 'Grid', 'grid'),
-      route('/crud/:resource/:id/edit', 'Form', 'edit'),
-      route('/crud/:resource/create', 'Form', 'create'),
-      route('/crud/:resource/:id/:action', 'Form', 'action'),
-      route('/crud/:resource/:action', 'Form', 'indexAction'),
+      route('/crud/:resource', 'CrudGrid', 'grid'),
+      route('/crud/:resource/:id/edit', 'CrudForm', 'edit'),
+      route('/crud/:resource/create', 'CrudForm', 'create'),
+      route('/crud/:resource/:id/:action', 'CrudForm', 'action'),
+      route('/crud/:resource/:action', 'CrudForm', 'indexAction'),
       route('/example', 'Example'),
+      route('/theme', 'Theme'),
       route('/chat', 'Chat'),
       route('/about', 'About'),
     ]),
     
 
     // Global redirect for 404
-    { path: '*', redirect: '/404' }
+    { path: '*', redirect: '/error', query: {code: 404, message: 'Page Not Found.'} }
   ]
 })
 

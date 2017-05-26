@@ -47,15 +47,20 @@ new Vue({
   router,
   render: h => h(App),
   mounted() {
-    
+
+  },
+  methods: {
+    back() {
+      this.$router.go(-1)
+    }
   },
   created() {
-    this.$http.get('/users/1').then(({data}) => console.log(data))
+    // this.$http.get('/users/1').then(({data}) => console.log(data))
     global.$t = this.$t
     this.$store.commit('setMenu', menu)
     this.$store.dispatch('checkPageTitle', this.$route.path)
     this.$store.dispatch('checkAuth')
 
-    
+
   }
 });

@@ -1,7 +1,14 @@
-<template>
-  <div>
-    <v-form v-model="model" v-bind="$data" :method="method" :action="action" @success="onSuccess"></v-form>
-  </div>
+<template lang="pug">
+v-layout
+  v-flex(xs6)
+    v-form(v-model="model", v-bind="$data", :method="method", :action="action", @success="onSuccess")
+      div(slot="buttons",class="my-4")
+        
+        v-btn(light, class="grey",@click.native="$root.back()") 
+          v-icon(light, left) chevron_left 
+          span Back
+        v-btn(primary, light, type='submit') Submit
+          v-icon(right, light) send
 </template>
 
 <script>
@@ -69,10 +76,15 @@ export default {
     },
     onSuccess(data){
       if (data.id) {
-        this.$router.go(-1)
+        this.$router.push({name: 'grid', params: {resource: this.resource}})
+        // this.$router.go(-1)
       }
     }
   },
+  created() {
+    let pageTitle = (this.isEdit ? 'Update' : 'Create') + ' ' + helper.i.titleize(helper.i.singularize(this.resource))
+    this.$store.commit('setPageTitle', pageTitle)
+  }, 
   mounted() {
     // this.$bus.showMessage('success', 'success')
     this.fetch()

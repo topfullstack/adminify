@@ -1,50 +1,27 @@
-<template>
-  <div>
-  
-    <!--<hr>-->
-    <form :action="action" @submit.prevent="onSubmit">
-      <component :is="inline?'v-layout': 'div'">
-        <div v-for="(field, name) in fields" :key="name" class="ma-1">
-          <v-select v-if="field.type == 'select'" v-bind:items="field.options" v-model="model[name]" v-bind="field" />
-          <template v-else-if="field.type == 'radio'">
-            <p>{{field.label}}</p>
-            <v-radio v-for="option in field.options" :key="option.value" primary :value="option.value" v-model="model[name]" :label="option.label">
-            </v-radio>
-          </template>
-  
-          <template v-else-if="field.type == 'date'">
-            <v-text-field slot="activator" :label="field.label" v-model="model[name]"></v-text-field>
-            <!--<v-menu >
-              
-              <v-date-picker v-model="model[name]" no-title scrollable actions>
-                
-              </v-date-picker>
-            </v-menu>-->
-          </template>
-  
-          <template v-else-if="field.type == 'html'">
-            <p>{{field.label}}</p>
-            <quill-editor v-model="model[name]"></quill-editor>
-          </template>
-          <v-text-field v-else v-model="model[name]" v-bind="field"></v-text-field>
-        </div>
-  
-        <v-alert error v-model="hasError" class="py-2">
-          <div v-for="error in errors"> {{error.message}}</div>
-        </v-alert>
-        <slot></slot>
-        <slot name="buttons">
-          <div class="pt-2 actions">
-            <v-btn primary light type="submit"> {{$t(submitButtonText)}}
-              <v-icon right>{{submitButtonIcon}}</v-icon>
-            </v-btn>
-          </div>
-        </slot>
-  
-      </component>
-  
-    </form>
-  </div>
+<template lang="pug">
+div
+  form(:action='action', @submit.prevent='onSubmit')
+    v-layout(justify-end, v-bind="{[inline? 'row': 'column']: true}")
+      v-flex(v-for='(field, name) in fields', :key='name', :xs12="12")
+        v-select(v-if="field.type == 'select'", v-bind:items='field.options', v-model='model[name]', v-bind='field')
+        template(v-else-if="field.type == 'radio'")
+          p {{field.label}}
+          v-radio(v-for='option in field.options', :key='option.value', primary, :value='option.value', v-model='model[name]', :label='option.label')
+        template(v-else-if="field.type == 'date'")
+          v-menu
+            v-text-field(slot='activator', :label='field.label', v-model='model[name]')
+            v-date-picker(v-model='model[name]', no-title, scrollable, actions)
+        template(v-else-if="field.type == 'html'")
+          p {{field.label}}
+          quill-editor(v-model='model[name]')
+        v-text-field(v-else, v-model='model[name]', v-bind='field')
+      v-alert.py-2(error, v-model='hasError')
+        div(v-for='error in errors')  {{error.message}}
+      slot
+      v-flex.pt-4.actions(xs12)
+        slot(name='buttons')
+          v-btn.ma-0(primary, light, type='submit') {{submitButtonText}}
+            v-icon(right, light) {{submitButtonIcon}}
 </template>
 
 <script>
@@ -53,9 +30,6 @@ import VueQuillEditor from 'vue-quill-editor'
 import validator from 'indicative'
 
 Vue.use(VueQuillEditor)
-
-
-
 
 export default {
   props: {

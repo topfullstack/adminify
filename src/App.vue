@@ -11,11 +11,11 @@
 export default {
   data() {
     return {
-
+      
     }
   },
   methods: {
-
+   
   },
   created() {
     // this.$http.get('/users').then(({data}) => console.log(data))

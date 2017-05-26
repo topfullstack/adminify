@@ -13,4 +13,5 @@ export default {
   "User": "用户",
   "Create {}": "创建",
   "Page Not Found.": "页面不存在",
+  
 }

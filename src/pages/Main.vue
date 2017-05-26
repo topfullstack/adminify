@@ -33,9 +33,13 @@ v-app
               v-list-tile-title {{ item.title }}
             v-list-tile-action(v-if='item.subAction')
               v-icon.success--text {{ item.subAction }}
-    v-divider
-    .pa-2.fixed-bottom(v-show="!mini")
-      .px-2 &copy; 2017 Adonis-China.org
+    
+    .fixed-bottom(v-show="!mini")
+      v-divider
+      .px-3.py-2 
+        v-btn(icon)
+          v-icon github
+        a(href="https://github.com/wxs77577/adminify", target="_blank") 
   v-toolbar.blue.darken-1(fixed)
     v-toolbar-side-icon(light, @click.native.stop='mini = !mini')
     v-toolbar-title {{pageTitle}}
@@ -43,7 +47,7 @@ v-app
     v-container.pa-4(fluid)
         v-alert(v-bind='message', v-model='message.body', dismissible) {{message.body}}
         .py-2
-          transition(mode='out-in')
+          v-slide-y-transition(mode='out-in')
             router-view
 </template>
 

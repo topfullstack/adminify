@@ -33,6 +33,7 @@ const router = new Router({
       route('/crud/:resource/:id/:action', 'CrudForm', 'action'),
       route('/crud/:resource/:action', 'CrudForm', 'indexAction'),
       route('/example', 'Example'),
+      route('/settings', 'Settings'),
       route('/theme', 'Theme'),
       route('/chat', 'Chat'),
       route('/about', 'About'),

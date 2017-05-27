@@ -1,24 +1,22 @@
 <template lang="pug">
 div
   form(:action='action', @submit.prevent='onSubmit')
-    v-layout(justify-end, v-bind="{[inline? 'row': 'column']: true}")
-      v-flex(v-for='(field, name) in fields', :key='name', :xs12="12")
-        v-select(v-if="field.type == 'select'", v-bind:items='field.options', v-model='model[name]', v-bind='field')
-        template(v-else-if="field.type == 'radio'")
-          p {{field.label}}
-          v-radio(v-for='option in field.options', :key='option.value', primary, :value='option.value', v-model='model[name]', :label='option.label')
-        template(v-else-if="field.type == 'date'")
-          v-menu
-            v-text-field(slot='activator', :label='field.label', v-model='model[name]')
-            v-date-picker(v-model='model[name]', no-title, scrollable, actions)
-        template(v-else-if="field.type == 'html'")
-          p {{field.label}}
-          quill-editor(v-model='model[name]')
-        v-text-field(v-else, v-model='model[name]', v-bind='field')
+    v-tabs(grow, scroll-bars, v-model='active', light, v-if="groupBy")
+      v-tabs-bar(slot='activators')
+        v-tabs-item(v-for='(field, key) in group.parents', :key='key', :href="'tab-' + key", ripple)
+        v-tabs-slider
+      v-tabs-content(v-for='(fields, key) in group.children', :key='key', :id="'tab-' + key")
+        v-card(flat)
+          v-card-text
+            v-field(v-for='(field, name) in fields', :key='name', :field="field", v-model="model[name]")
+
+    v-layout(justify-end, v-bind="{[inline? 'row': 'column']: true}", v-if="!groupBy")
+      v-field(v-for='(field, name) in fields', :key='name', :field="field", v-model="model[name]")
+        
       v-alert.py-2(error, v-model='hasError')
         div(v-for='error in errors')  {{error.message}}
       slot
-      v-flex.pt-4.actions(xs12)
+      v-flex.actions(xs12)
         slot(name='buttons')
           v-btn.ma-0(primary, light, type='submit') {{submitButtonText}}
             v-icon(right, light) {{submitButtonIcon}}
@@ -28,14 +26,21 @@ div
 import Vue from 'vue'
 import VueQuillEditor from 'vue-quill-editor'
 import validator from 'indicative'
+import VField from './Field.vue'
 
 Vue.use(VueQuillEditor)
 
 export default {
+  components: {VField},
   props: {
     inline: {
       type: Boolean,
       default: false
+    },
+    groupBy: {
+      required: false,
+      type: String,
+      default: null
     },
     action: {
       required: false,
@@ -89,6 +94,27 @@ export default {
   },
 
   computed: {
+    group() {
+      if (!this.groupBy) {
+        return null
+      }
+      let parents = children = {}
+      for (let k in this.fields) {
+        let field = this.fields[k]
+        let ref = field[this.groupBy]
+        let parentKey = field.id
+        if (ref === null) { // is parent
+          parents[parentKey] = field
+        } else { // is child
+          if (!children[ref]) {
+            children[ref] = {}
+          }
+          children[ref][k] = field
+        }
+      }
+      return {parents, children}
+    },
+
     autoSubmit() {
       return !!this.action
     }
@@ -97,15 +123,11 @@ export default {
     'value'(val) {
       this.model = val
     },
-    '$route': 'fetch',
     'model': 'updateFields'
   },
   methods: {
-    onSelected(value, name) {
-      // console.log(arguments)
-      console.log(value.id, name)
-      // this.model[name] = value ? value.id : null
-    },
+    
+    getGroupedFields() { },
     getFieldError(fieldName) {
       for (let k in this.errors) {
         let error = this.errors[k]
@@ -117,20 +139,7 @@ export default {
     updateFields() {
 
     },
-    fetch() {
-      if (!this.autoSubmit) {
-        return false
-      }
-      this.$http.get(`${this.resource}/form`, {
-        params: { id: this.id },
-        ...this.$route.query
-      }).then(({ data }) => {
-        this.model = data.model
-        this.fields = data.fields
-        this.rules = data.rules
-        this.messages = data.messages
-      })
-    },
+    
     onSubmit() {
 
       validator.validate(this.model, this.rules, this.messages).then(() => {
@@ -173,7 +182,7 @@ export default {
   },
   mounted() {
     // this.$bus.showMessage('success', 'success')
-    // this.fetch()
+    
   },
   created() {
     validator.extend('unique', function (data, field, message, args, get) {

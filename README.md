@@ -1,21 +1,13 @@
-# dashboard
+# Adminify
+- An Admin dashboard based on [Vuetify](https://vuetifyjs.com/) .
+- API is built on [AdonisJs](http://www.adonisjs.com/) . 
+- Also welcome to [Adonis China](https://adonis-china.org/) .
 
-A Vue.js project 
-
-## Build Setup
-
+## Getting start
 ``` bash
-# install dependencies
 npm install
-
-# serve with hot reload at localhost:8080
 npm run dev
-
-# build for production with minification
-npm run build
 ```
+> Use `cnpm` instead `npm` in China
 
 ## Develop
-
-Run `npm run dev` and go to `http://localhost:8081/` to check the page. 
-

@@ -8,8 +8,10 @@ module.exports = {
         publicPath: '/dist/',
         filename: 'build.js'
     },
+
     resolve: {
         alias: {
+            'vue$': 'vue/dist/vue.esm.js',
             'public': path.resolve(__dirname, './public'),
             'src': path.resolve(__dirname, './src'),
             'pages': path.resolve(__dirname, './src/pages'),
@@ -23,7 +25,7 @@ module.exports = {
                 loader: 'vue-loader',
                 options: {
                     buble: {
-                        objectAssign: 'Object.assign'
+                        objectAssign: 'Object.assign',
                     }
                     // vue-loader options go here
                 }
@@ -33,7 +35,7 @@ module.exports = {
                 loader: 'buble-loader',
                 exclude: /node_modules/,
                 options: {
-                    objectAssign: 'Object.assign'
+                    objectAssign: 'Object.assign',
                 }
             },
             {

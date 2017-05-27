@@ -37,9 +37,8 @@ v-app
     .fixed-bottom(v-show="!mini")
       v-divider
       .px-3.py-2 
-        v-btn(icon)
-          v-icon github
-        a(href="https://github.com/wxs77577/adminify", target="_blank") 
+        a(href="https://github.com/wxs77577/adminify", target="_blank") Github 
+        
   v-toolbar.blue.darken-1(fixed)
     v-toolbar-side-icon(light, @click.native.stop='mini = !mini')
     v-toolbar-title {{pageTitle}}

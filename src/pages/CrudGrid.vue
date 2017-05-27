@@ -35,7 +35,7 @@ div
 </template>
 
 <script>
-import CrudForm from './CrudForm.vue'
+
 const getDefaultData = () => {
   return {
       form: {
@@ -70,7 +70,7 @@ const getDefaultData = () => {
     }
 }
 export default {
-  components: {CrudForm},
+  
   data: getDefaultData,
   
   watch: {
@@ -127,8 +127,6 @@ export default {
       })
     },
     doSearch() {
-      
-      
       this.pagination.page = 1
       this.fetchData()
     },

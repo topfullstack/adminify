@@ -33,7 +33,7 @@
     "vue-loader": "^11.0.0",
     "vue-router": "^2.1.1",
     "vue-template-compiler": "^2.1.6",
-    "vuetify": "git://github.com/vuetifyjs/vuetify.git",
+    "vuetify": "*",
     "vuex": "^2.3.1",
     "webpack": "^2.1.0-beta.25",
     "webpack-dev-server": "^2.1.0-beta.0"

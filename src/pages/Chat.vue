@@ -1,5 +1,6 @@
 <template lang="pug">
 v-container
+  v-alert(warning,v-model="showWarning") tips: A Socket Server is needed.
   v-list(two-line)
     template(v-for='item in list.slice(0, 6)')
       v-subheader(v-if='item.header', v-text='item.header')
@@ -26,6 +27,7 @@ export default {
     return {
       list: [],
       message: '',
+      showWarning: false,
       maxLength: 6
     }
   },
@@ -40,15 +42,21 @@ export default {
   },
   mounted() {
 
-
-    client.connect(function (error, connected) {
+    
+    client.connect((error, connected) => {
       if (error) {
+        this.showWarning = true
+        return false
         // do something
         return
       }
       console.log('connected: ', connected)
       client.emit('message', 'hello')
       // all good
+    })
+    client.on('error', (message) => {
+      console.log(message);
+      
     })
     client.on('message', (message) => {
       this.list.push(message)

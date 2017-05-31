@@ -63,24 +63,42 @@ mock.onGet('/types/grid').reply(200, {
       left: true,
       "value": "name"
     }
-  ],
-  "actions": {
-    "edit": true,
-    "delete": true
-  }
+  ]
 });
 
 mock.onGet('/settings/form').reply(({ params }) => {
   return [200, {
     "model": {
-      site_name: 'Adminify',
-      site_logo: 'http://placeimg.com/128/128/any',
-      created_at: null,
+      name: 'Adminify',
+      logo: 'http://placeimg.com/128/128/any',
+      date: null,
+      
+      type: 1,
+      status: 1,
+      
+      tags: [],
+      description: 'An Awesome Site',
+      intro: '',
     },
     "fields": {
-      "site_name": {label: 'Site Name'},
-      "site_logo": {label: 'Site Logo', type: 'image'},
-      "created_at": {label: 'Created At', type: 'datetime'},
+      "name": {label: 'Name'},
+      "logo": {label: 'Logo', type: 'image'},
+      "date": {label: 'Created At', type: 'datetime'},
+      "type": {label: 'Type', type: 'select', options: [
+        {text: 'Blog', value: 1},
+        {text: 'Company', value: 2},
+        {text: 'Game', value: 3},
+      ]},
+      "status": {label: 'Status', type: 'radios', width: 'md3', options: [
+        {text: 'Enabled', value: 1},
+        {text: 'Disabled', value: 2}
+      ]},
+      "tags": {label: 'Tags', type: 'checkboxes', width: 'md3', options: [
+        {text: 'Enabled', value: 1},
+        {text: 'Disabled', value: 2}
+      ]},
+      "description": {label: 'Description', type: 'textarea'},
+      "intro": {label: 'Intro', type: 'html'},
     }
   }]
 })

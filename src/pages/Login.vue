@@ -4,19 +4,19 @@ div
     v-card(hover='', style='background:white')
       v-card-row.deep-purple.darken-1
         v-card-title.white--text
-          .text-xs-center  {{$t(&apos;Login&apos;)}}
+          .text-xs-center  {{$t("Login")}}
       v-card-row
         v-card-text.pt-4
-          v-form(v-model='model', action='login', :fields='fields', @success='onSuccess')
-            .pb-2
-              small {{$t(&apos;* Indicates required field&apos;)}}
-            div(slot='buttons')
-              v-btn.ma-0(type='submit', light='', success='')
-                v-icon(light='', right='') send
+          v-form(v-model='model', action='login', :fields='fields', @success='onSuccess', submitButtonText="Login")
+            .flex.pb-2
+              small {{$t("* Indicates required field")}}
+            
 </template>
 
 <style>
-  
+  body{
+    background: #666 !important;
+  }
 </style>
 
 <script>

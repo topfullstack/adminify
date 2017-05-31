@@ -1,6 +1,6 @@
 <template lang="pug">
 v-layout
-  v-flex(xs6)
+  v-flex(md6)
     v-form(v-model="model", v-bind="$data", method="patch", action="settings", @success="onSuccess")
       div(slot="buttons",class="my-4")
         v-btn(light, class="grey",@click.native="$root.back()") 
@@ -8,6 +8,9 @@ v-layout
           span Back
         v-btn(primary, light, type='submit') Submit
           v-icon(right, light) send
+  v-flex(md6)
+    h5 {{$t('Result:')}}
+    p {{model}}
 </template>
 
 <script>

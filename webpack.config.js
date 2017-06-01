@@ -1,19 +1,27 @@
 let path = require('path');
 let webpack = require('webpack');
+let ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 module.exports = {
   entry: {
     main: './src/main.js',
-    vendor: 'vendor',
   },
   output: {
     path: path.resolve(__dirname, './dist'),
     publicPath: '/dist/',
-    filename: '[name].[chunkhash].js',
+    filename: '[name].js',
   },
   plugins: [
+    new ExtractTextPlugin('main.css'),
     new webpack.optimize.CommonsChunkPlugin({
-      names: ['vendor', 'manifest'] // 指定公共 bundle 的名字。
+      minChunks: function (module) {
+        // 该配置假定你引入的 vendor 存在于 node_modules 目录中
+        return module.context && module.context.indexOf('node_modules') !== -1;
+      },
+      name: 'vendor'
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'manifest'
     })
   ],
   resolve: {
@@ -32,6 +40,7 @@ module.exports = {
         loader: 'vue-loader',
         options: {
           buble: {
+            
             objectAssign: 'Object.assign',
           }
           // vue-loader options go here
@@ -42,16 +51,23 @@ module.exports = {
         loader: 'buble-loader',
         exclude: /node_modules/,
         options: {
+          
           objectAssign: 'Object.assign',
         }
       },
       {
         test: /\.css$/,
-        loader: ['style-loader', 'css-loader']
+        loader: ['style-loader', 'css-loader'],
+        // use: ExtractTextPlugin.extract({
+        //   use: 'css-loader'
+        // })
       },
       {
         test: /\.styl$/,
-        loader: ['style-loader', 'css-loader', 'stylus-loader']
+        // loader: ['style-loader', 'css-loader', 'stylus-loader'],
+        use: ExtractTextPlugin.extract({
+          use: ['css-loader', 'stylus-loader']
+        })
       }
     ]
   },
@@ -66,6 +82,7 @@ module.exports = {
 if (process.env.NODE_ENV === 'production') {
   // module.exports.devtool = '#source-map';
   // http://vue-loader.vuejs.org/en/workflow/production.html
+  // module.exports.output.filename = "[name].[chunkhash].js"
   module.exports.plugins = (module.exports.plugins || []).concat([
     new webpack.DefinePlugin({
       'process.env': {

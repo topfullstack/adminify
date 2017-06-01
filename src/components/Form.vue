@@ -26,7 +26,7 @@ div
 import Vue from 'vue'
 import Dropzone from 'vue2-dropzone'
 import VueQuillEditor from 'vue-quill-editor'
-import validator from 'indicative'
+import validator from 'buble-loader!indicative'
 import VField from './Field.vue'
 
 Vue.use(VueQuillEditor)

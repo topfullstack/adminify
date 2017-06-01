@@ -1,10 +1,21 @@
 # Adminify
 
 [![Join the chat at https://gitter.im/vue-adminify/Lobby](https://badges.gitter.im/vue-adminify/Lobby.svg)](https://gitter.im/vue-adminify/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 - An Admin dashboard based on [Vuetify](https://vuetifyjs.com/) .
 - Data in demo use `axios-mock-adapter`
 - Better Server API is built on [AdonisJs](http://www.adonisjs.com/) . 
 - Also welcome to [Adonis China](https://adonis-china.org/) .
+
+## Screenshots
+|  |  |
+|---|---|
+|![1.png](screenshots/1.png)|![2.png](screenshots/2.png)|
+|![3.png](screenshots/3.png)|![4.png](screenshots/4.png)|
+|![5.png](screenshots/5.png)|![6.png](screenshots/6.png)|
+|![7.png](screenshots/7.png)||
+
+
 
 ## Features
 - Vue + Vue Router + Vuex + Axios.

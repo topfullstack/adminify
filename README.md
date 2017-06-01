@@ -40,7 +40,7 @@
 
 ## Config
 > `src/config.js`
-```
+```javascript
 const baseUrl = 'http://localhost:3333'
 const config = {
   locale: 'en-US', //en-US, zh-CN
@@ -57,7 +57,7 @@ const config = {
 
 ## Menu Config
 > `src/menu.js`
-```
+```javascript
 export default [
   { "href": "/", "title": "Home", "icon": "home" },
   { "href": "/crud/types", "title": "Types", "icon": "view_list" },
@@ -91,7 +91,7 @@ export default [
 
 
 
-```
+```javascript
   // The signature of `route` function :
   function route(path, file, name, children) {}
 
@@ -124,7 +124,7 @@ export default [
 
 ## Grid View Config
 > `src/mock/index.js`
-```
+```javascript
 mock.onGet('/types/grid').reply(200, {
   "options": {
     "sort": "id", //default sort column
@@ -164,7 +164,7 @@ mock.onGet('/types/grid').reply(200, {
 
 ## Grid View Data 
 > `src/mock/index.js`
-```
+```javascript
 mock.onGet(/\/(posts|users|types|comments)$/).reply(({ params = { page: 1, perPage: 10 }, url }) => {
   let resource = url.split('/')[1]
   let offset = (params.page - 1) * params.perPage
@@ -182,7 +182,7 @@ mock.onGet(/\/(posts|users|types|comments)$/).reply(({ params = { page: 1, perPa
 ## Form Builder Config
 > `src/mock/index.js`
 
-```
+```javascript
 mock.onGet('/settings/form').reply(({ params }) => {
   return [200, {
     "model": { //form model

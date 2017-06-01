@@ -127,7 +127,7 @@ mock.onGet('/posts/form').reply(({ params }) => {
         "type": "select",
         "label": "Type",
         "required": true,
-        "options": data.choices('type')
+        "options": data.choices('types')
       },
       "title": {
         "label": "title",
@@ -186,9 +186,18 @@ mock.onGet('/posts/grid').reply(200, {
       "value": "id"
     },
     {
+      "text": "Type",
+      left: true,
+      "value": "type.name"
+    },
+    {
       "text": "Title",
       left: true,
       "value": "title"
+    },
+    {
+      "text": "Created At",
+      "value": "created_at"
     }
   ],
 });
@@ -240,6 +249,27 @@ mock.onGet('/users/grid').reply(200, {
 
   ],
 });
+
+mock.onGet('/users/form').reply(({ params }) => {
+  return [200, {
+    "model": data.users[params.id - 1],
+    "fields": {
+      "username": {
+        "label": "Username",
+        "required": true
+      },
+      "nickname": {
+        "label": "Nickname",
+        "required": true
+      },
+      "avatar": {
+        "label": "Avatar",
+        "required": false
+      },
+      
+    }
+  }]
+})
 
 mock.onGet(/\/\w+\/grid$/i).reply(({ params, url }) => {
   return [200, {

@@ -27,7 +27,7 @@ export default {
     return {
       model: {
         username: 'admin',
-        password: '123456'
+        password: 'admin'
       },
       
       fields: {

@@ -24,16 +24,10 @@ div
 
 <script>
 import Vue from 'vue'
-import Dropzone from 'vue2-dropzone'
-import VueQuillEditor from 'vue-quill-editor'
-import validator from 'buble-loader!indicative'
 import VField from './Field.vue'
-
-Vue.use(VueQuillEditor)
-
 export default {
   components: {
-    VField, Dropzone
+    VField
   },
   props: {
     inline: {

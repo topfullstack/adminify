@@ -30,6 +30,13 @@ Vue.use(VueTimeago, {
   }
 })
 
+import Dropzone from 'vue2-dropzone'
+import VueQuillEditor from 'vue-quill-editor'
+import validator from 'indicative'
+global.validator = validator
+Vue.use(VueQuillEditor)
+Vue.component('dropzone', Dropzone)
+
 import VForm from './components/Form.vue'
 import VGrid from './components/Grid.vue'
 

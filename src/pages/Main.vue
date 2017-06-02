@@ -39,7 +39,7 @@ v-app
       .px-3.py-2 
         a(href="https://github.com/wxs77577/adminify", target="_blank") Github 
         
-  v-toolbar.blue.darken-1(fixed)
+  v-toolbar.blue.darken-1(fixed,light)
     v-toolbar-side-icon(light, @click.native.stop='mini = !mini')
     v-toolbar-title {{pageTitle}}
   main

@@ -137,7 +137,7 @@ export default {
     },
     refresh() {
       Object.assign(this.$data, getDefaultData())
-      this.fetchGrid()
+      this.fetchGrid().then(() => this.fetchData())
     },
     fetch() {
 

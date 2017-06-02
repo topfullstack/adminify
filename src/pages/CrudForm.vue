@@ -1,6 +1,6 @@
 <template lang="pug">
 v-layout
-  v-flex(xs6)
+  v-flex(xs8)
     v-form(v-model="model", v-bind="$data", :method="method", :action="action", @success="onSuccess")
       div(slot="buttons",class="my-4")
         

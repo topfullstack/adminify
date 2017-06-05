@@ -7,6 +7,9 @@
 - Better Server API is built on [AdonisJs](http://www.adonisjs.com/) . 
 - Also welcome to [Adonis China](https://adonis-china.org/) .
 
+## Live Demo
+[http://adminify.genyii.com](http://adminify.genyii.com)
+
 ## Screenshots
 |  |  |
 |---|---|

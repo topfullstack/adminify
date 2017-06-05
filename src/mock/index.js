@@ -8,14 +8,14 @@ let mock = new MockAdapter(axios, { delayResponse: 80 })
 
 mock.onGet('/users').reply(200, Mock.mock({
   data: data.users.slice(0, 10)
-}));
+}))
 
 mock.onPost('/login').reply(200, {
   user: data.users[0],
-  token: 'DFJ091283U09AODFUP018923U4J123J',
-});
+  token: 'DFJ091283U09AODFUP018923U4J123J'
+})
 
-//for `index` action of resources
+// for `index` action of resources
 mock.onGet(/\/(posts|users|types|comments)$/).reply(({ params = { page: 1, perPage: 10 }, url }) => {
   let resource = url.split('/')[1]
   let offset = (params.page - 1) * params.perPage
@@ -27,89 +27,96 @@ mock.onGet(/\/(posts|users|types|comments)$/).reply(({ params = { page: 1, perPa
     total: data[resource].length,
     data: models.slice(offset, offset + params.perPage)
   }]
-});
-
+})
 
 mock.onGet('/types/grid').reply(200, {
-  "options": {
-    "sort": "id",
-    "create": false,
-    "update": true,
-    "delete": false
+  'options': {
+    'sort': 'id',
+    'create': false,
+    'update': true,
+    'delete': false
   },
-  "filters": {
-    "model": {
-      "name": "",
-      "created_at": ""
+  'filters': {
+    'model': {
+      'name': '',
+      'created_at': ''
     },
-    "fields": {
-      "name": {
-        "label": "Name"
+    'fields': {
+      'name': {
+        'label': 'Name'
       },
-      "created_at": {
-        "label": "Created At",
-        "type": "date"
+      'created_at': {
+        'label': 'Created At',
+        'type': 'date'
       }
     },
-    "rules": {}
+    'rules': {}
   },
-  "columns": [
+  'columns': [
     {
-      "text": "Id",
-      "value": "id"
+      'text': 'Id',
+      'value': 'id'
     },
     {
-      "text": "Name",
+      'text': 'Name',
       left: true,
-      "value": "name"
+      'value': 'name'
     }
   ]
-});
+})
 
 mock.onGet('/settings/form').reply(({ params }) => {
   return [200, {
-    "model": {
+    'model': {
       name: 'Adminify',
       logo: 'http://placeimg.com/128/128/any',
       date: null,
-      
+
       type: 1,
       status: 1,
-      
+
       tags: [],
       description: 'An Awesome Site',
-      intro: '',
+      intro: ''
     },
-    "fields": {
-      "name": {label: 'Name'},
-      "logo": {label: 'Logo', type: 'image'},
-      "date": {label: 'Created At', type: 'datetime'},
-      "type": {label: 'Type', type: 'select', options: [
+    'fields': {
+      'name': {label: 'Name'},
+      'logo': {label: 'Logo', type: 'image'},
+      'date': {label: 'Created At', type: 'datetime'},
+      'type': {label: 'Type',
+        type: 'select',
+        options: [
         {text: 'Blog', value: 1},
         {text: 'Company', value: 2},
-        {text: 'Game', value: 3},
-      ]},
-      "status": {label: 'Status', type: 'radios', width: 'md3', options: [
+        {text: 'Game', value: 3}
+        ]},
+      'status': {label: 'Status',
+        type: 'radios',
+        width: 'md3',
+        options: [
         {text: 'Enabled', value: 1},
         {text: 'Disabled', value: 2}
-      ]},
-      "tags": {label: 'Tags', type: 'checkboxes', width: 'md3', options: [
+        ]},
+      'tags': {label: 'Tags',
+        type: 'checkboxes',
+        width: 'md3',
+        options: [
         {text: 'Enabled', value: 1},
         {text: 'Disabled', value: 2}
-      ]},
-      "description": {label: 'Description', type: 'textarea'},
-      "intro": {label: 'Intro', type: 'html'},
+        ]},
+      'description': {label: 'Description', type: 'textarea'},
+      'intro': {label: 'Intro', type: 'html'}
     }
   }]
 })
 
 mock.onGet('/types/form').reply(({ params }) => {
   return [200, {
-    "model": data.types[params.id - 1],
-    "fields": {
-      "name": {
-        "label": "Name",
-        "required": true
+    'model': data.types[params.id - 1],
+    'fields': {
+      'name': {
+        'label': 'Name',
+        'required': true
       }
     }
   }]
@@ -117,194 +124,194 @@ mock.onGet('/types/form').reply(({ params }) => {
 
 mock.onGet('/posts/form').reply(({ params }) => {
   return [200, {
-    "model": params.id ? data.posts[params.id - 1] : {
+    'model': params.id ? data.posts[params.id - 1] : {
       type_id: null,
       title: null,
       body: null
     },
-    "fields": {
-      "type_id": {
-        "type": "select",
-        "label": "Type",
-        "required": true,
-        "options": data.choices('types')
+    'fields': {
+      'type_id': {
+        'type': 'select',
+        'label': 'Type',
+        'required': true,
+        'options': data.choices('types')
       },
-      "title": {
-        "label": "title",
-        "required": true
+      'title': {
+        'label': 'title',
+        'required': true
       },
-      "body": {
-        "label": "Body",
-        "type": "html",
-      },
-      
+      'body': {
+        'label': 'Body',
+        'type': 'html'
+      }
+
     }
   }]
 })
 
-//for `update` action of resources
+// for `update` action of resources
 mock.onPatch(/\/\w+\/\d+$/).reply(({ params, data: body, url }) => {
-  const id = url.split('/')[2]
+  // const id = url.split('/')[2]
   return [200, body]
 })
 mock.onPost(/\/\w+$/).reply(({ params, data: body, url }) => {
-  const id = url.split('/')[1]
+  // const id = url.split('/')[1]
   return [200, body]
 })
 mock.onGet('/posts/grid').reply(200, {
-  "options": {
-    "sort": "-id",
-    "create": true,
-    "update": true,
-    "delete": true
+  'options': {
+    'sort': '-id',
+    'create': true,
+    'update': true,
+    'delete': true
   },
-  "filters": {
-    "model": {
-      "title": "",
-      "type_id": null,
-      "created_at": ""
+  'filters': {
+    'model': {
+      'title': '',
+      'type_id': null,
+      'created_at': ''
     },
-    "fields": {
-      "title": {
-        "label": "Title"
+    'fields': {
+      'title': {
+        'label': 'Title'
       },
-      "type_id": {
-        "type": "select",
-        "label": "",
-        "options": data.choices('types')
+      'type_id': {
+        'type': 'select',
+        'label': '',
+        'options': data.choices('types')
       },
-      "created_at": {
-        "label": "Created At",
-        "type": "date"
+      'created_at': {
+        'label': 'Created At',
+        'type': 'date'
       }
     },
-    "rules": {}
+    'rules': {}
   },
-  "columns": [
+  'columns': [
     {
-      "text": "Id",
-      "value": "id"
+      'text': 'Id',
+      'value': 'id'
     },
     {
-      "text": "Type",
+      'text': 'Type',
       left: true,
-      "value": "type.name"
+      'value': 'type.name'
     },
     {
-      "text": "Title",
+      'text': 'Title',
       left: true,
-      "value": "title"
+      'value': 'title'
     },
     {
-      "text": "Created At",
-      "value": "created_at"
+      'text': 'Created At',
+      'value': 'created_at'
     }
-  ],
-});
-mock.onGet('/users').reply(200, data.users[0]);
+  ]
+})
+mock.onGet('/users').reply(200, data.users[0])
 
 mock.onGet('/users/grid').reply(200, {
-  "options": {
-    "sort": "-id",
-    "create": false,
-    "update": false,
-    "delete": false
+  'options': {
+    'sort': '-id',
+    'create': false,
+    'update': false,
+    'delete': false
   },
-  "filters": {
-    "model": {
-      "username": "",
-      "created_at": ""
+  'filters': {
+    'model': {
+      'username': '',
+      'created_at': ''
     },
-    "fields": {
-      "username": {
-        "label": "Username"
+    'fields': {
+      'username': {
+        'label': 'Username'
       },
-      "created_at": {
-        "label": "Created At",
-        "type": "date"
+      'created_at': {
+        'label': 'Created At',
+        'type': 'date'
       }
     },
-    "rules": {}
+    'rules': {}
   },
-  "columns": [
+  'columns': [
     {
-      "text": "Id",
-      "value": "id"
+      'text': 'Id',
+      'value': 'id'
     },
     {
-      "text": "Username",
+      'text': 'Username',
       left: true,
-      "value": "username"
+      'value': 'username'
     },
     {
-      "text": "Avatar",
+      'text': 'Avatar',
       left: true,
-      "value": "avatar"
+      'value': 'avatar'
     },
     {
-      "text": "Nickname",
+      'text': 'Nickname',
       left: true,
-      "value": "nickname"
-    },
+      'value': 'nickname'
+    }
 
-  ],
-});
+  ]
+})
 
 mock.onGet('/users/form').reply(({ params }) => {
   return [200, {
-    "model": data.users[params.id - 1],
-    "fields": {
-      "username": {
-        "label": "Username",
-        "required": true
+    'model': data.users[params.id - 1],
+    'fields': {
+      'username': {
+        'label': 'Username',
+        'required': true
       },
-      "nickname": {
-        "label": "Nickname",
-        "required": true
+      'nickname': {
+        'label': 'Nickname',
+        'required': true
       },
-      "avatar": {
-        "label": "Avatar",
-        "required": false
-      },
-      
+      'avatar': {
+        'label': 'Avatar',
+        'required': false
+      }
+
     }
   }]
 })
 
 mock.onGet(/\/\w+\/grid$/i).reply(({ params, url }) => {
   return [200, {
-    "options": {
-      "sort": "id",
-      "create": true,
-      "update": true,
-      "delete": true
+    'options': {
+      'sort': 'id',
+      'create': true,
+      'update': true,
+      'delete': true
     },
-    "filters": {
-      "model": {
-        "id": "",
-        "created_at": ""
+    'filters': {
+      'model': {
+        'id': '',
+        'created_at': ''
       },
-      "fields": {
-        
-        "created_at": {
-          "label": "Created At",
-          "type": "date"
+      'fields': {
+
+        'created_at': {
+          'label': 'Created At',
+          'type': 'date'
         }
       },
-      "rules": {}
+      'rules': {}
     },
-    "columns": [
+    'columns': [
       {
-        "text": "Id",
-        "value": "id"
+        'text': 'Id',
+        'value': 'id'
       },
       {
-        "text": "Created At",
-        "value": "created_at"
+        'text': 'Created At',
+        'value': 'created_at'
       }
-    ],
+    ]
   }]
-});
+})
 
 export default mock
 

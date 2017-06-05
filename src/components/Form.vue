@@ -23,12 +23,7 @@ div
 </template>
 
 <script>
-import Vue from 'vue'
-import VField from './Field.vue'
 export default {
-  components: {
-    VField
-  },
   props: {
     inline: {
       type: Boolean,
@@ -78,10 +73,10 @@ export default {
       required: false,
       type: Object,
       default: () => { }
-    },
+    }
 
   },
-  data() {
+  data () {
     return {
       model: this.value,
       hasError: false,
@@ -91,11 +86,12 @@ export default {
   },
 
   computed: {
-    group() {
+    group () {
       if (!this.groupBy) {
         return null
       }
-      let parents = children = {}
+      let parents = {}
+      let children = {}
       for (let k in this.fields) {
         let field = this.fields[k]
         let ref = field[this.groupBy]
@@ -112,45 +108,43 @@ export default {
       return {parents, children}
     },
 
-    autoSubmit() {
+    autoSubmit () {
       return !!this.action
     }
   },
   watch: {
-    'value'(val) {
+    'value' (val) {
       this.model = val
     },
     'model': 'updateFields'
   },
   methods: {
-    
-    getGroupedFields() { },
-    getFieldError(fieldName) {
+
+    getGroupedFields () { },
+    getFieldError (fieldName) {
       for (let k in this.errors) {
         let error = this.errors[k]
-        if (error.field == fieldName) {
+        if (error.field === fieldName) {
           return error.message
         }
       }
     },
-    updateFields() {
+    updateFields () {
 
     },
-    
-    onSubmit() {
 
-      validator.validate(this.model, this.rules, this.messages).then(() => {
-
-        this.$emit("input", this.model)
+    onSubmit () {
+      const valid = global.validator.make(this.model, this.rules, this.messages)
+      if (valid.passes()) {
+        this.$emit('input', this.model)
         if (!this.autoSubmit) {
           this.$emit('submit')
           return false
         }
 
         this.$http[this.method](this.action, this.model).then(({ data }) => {
-          this.$emit("success", data)
+          this.$emit('success', data)
           this.hasError = false
-
         }).catch(({ response }) => {
           let { status, data } = response
           this.hasError = true
@@ -161,33 +155,32 @@ export default {
             case 422:
 
               this.errors = data
-              break;
+              break
             default:
 
           }
           this.$emit('error', status, data)
         })
-      }).catch((errors) => {
-        console.info(errors)
+      } else {
+        const errors = valid.getErrors()
         this.hasError = true
         this.errors = errors
         this.$emit('error', errors)
         // this.$bus.showMessage('error', 'error')
-      })
-
+      }
     }
   },
-  mounted() {
+  mounted () {
     // this.$bus.showMessage('success', 'success')
-    
+
   },
-  created() {
-    validator.extend('unique', function (data, field, message, args, get) {
-      return new Promise(function (resolve, reject) {
-        const fieldValue = get(data, field)
-        return resolve('Unsupported in client.')
-      })
-    }, this.$t('Field should be unique.'))
+  created () {
+    // global.validator.extend('unique', function (data, field, message, args, get) {
+    //   return new Promise(function (resolve, reject) {
+    //     // const fieldValue = get(data, field)
+    //     return resolve('Unsupported in client.')
+    //   })
+    // }, this.$t('Field should be unique.'))
   }
 }
 </script>

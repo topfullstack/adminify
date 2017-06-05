@@ -1,6 +1,6 @@
 <template lang="pug">
 v-layout
-  v-flex(md6)
+  v-flex(md8)
     v-form(v-model="model", v-bind="$data", method="patch", action="settings", @success="onSuccess")
       div(slot="buttons",class="my-4")
         v-btn(light, class="grey",@click.native="$root.back()") 
@@ -8,7 +8,7 @@ v-layout
           span Back
         v-btn(primary, light, type='submit') Submit
           v-icon(right, light) send
-  v-flex(md6)
+  v-flex(md4)
     h5 {{$t('Result:')}}
     p {{model}}
 </template>
@@ -17,39 +17,38 @@ v-layout
 
 export default {
 
-  data() {
+  data () {
     return {
       model: {},
       fields: {},
       rules: {},
-      messages: {},
+      messages: {}
     }
   },
   computed: {
-    
-    isEdit(){
+
+    isEdit () {
       return !!this.id
-    },
-    
-    
+    }
+
   },
   watch: {
     '$route': 'fetch',
     'model': 'updateFields'
   },
   methods: {
-    getFieldError(fieldName){
+    getFieldError (fieldName) {
       for (let k in this.errors) {
         let error = this.errors[k]
-        if (error.field == fieldName) {
+        if (error.field === fieldName) {
           return error.message
         }
       }
     },
-    updateFields(){
+    updateFields () {
 
     },
-    fetch(){
+    fetch () {
       this.$http.get(`settings/form`, {
         params: {id: this.id}
       }).then(({data}) => {
@@ -59,17 +58,17 @@ export default {
         this.messages = data.messages
       })
     },
-    onSubmit(){
-      
+    onSubmit () {
+
     },
-    onSuccess(data){
-      
+    onSuccess (data) {
+
     }
   },
-  created() {
+  created () {
 
-  }, 
-  mounted() {
+  },
+  mounted () {
     this.fetch()
   }
 }

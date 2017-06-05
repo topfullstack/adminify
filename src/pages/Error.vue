@@ -16,14 +16,14 @@
 </style>
 <script>
 export default {
-  data() {
+  data () {
     return {
       code: this.$route.query.code || 404,
       message: this.$route.query.message || 'Page Not Found.'
     }
   },
 
-  mounted() {
+  mounted () {
   }
 }
 </script>

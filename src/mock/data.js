@@ -4,7 +4,7 @@ let data = {
   users: [],
   types: [],
   posts: [],
-  comments: [],
+  comments: []
 }
 for (let i = 1; i <= 100; i++) {
   data.users.push(Mock.mock({
@@ -16,11 +16,11 @@ for (let i = 1; i <= 100; i++) {
     // avatar: Mock.Random.image(),
     created_at: '@datetime',
     updated_at: '@datetime',
-    deleted_at: null,
+    deleted_at: null
   }))
 }
 
-data.users[0].username = 'admin' //default user
+data.users[0].username = 'admin' // default user
 
 for (let i = 1; i <= 6; i++) {
   data.types.push(Mock.mock({
@@ -28,7 +28,7 @@ for (let i = 1; i <= 6; i++) {
     name: '@first',
     created_at: '@datetime',
     updated_at: '@datetime',
-    deleted_at: null,
+    deleted_at: null
   }))
 }
 
@@ -42,7 +42,7 @@ for (let i = 1; i <= 83; i++) {
     'user|1': data.users,
     created_at: '@datetime',
     updated_at: '@datetime',
-    deleted_at: null,
+    deleted_at: null
   }))
 }
 
@@ -56,7 +56,7 @@ for (let i = 1; i <= 200; i++) {
     'user|1': data.users,
     created_at: '@datetime',
     updated_at: '@datetime',
-    deleted_at: null,
+    deleted_at: null
   }))
 }
 

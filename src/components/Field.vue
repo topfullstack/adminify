@@ -4,7 +4,7 @@ v-flex(xs12)
   template(v-else-if="['radios', 'checkboxes'].indexOf(field.type) > -1")
     p {{field.label}}
     v-layout(row, wrap)
-      v-flex(v-bind="{[field.width]: true}",xs12, v-for='option in field.options')
+      v-flex(v-bind="{[field.width]: true}",xs12, v-for='option in field.options',:key="field.value")
         component(
           v-model='model', 
           hide-details,
@@ -29,7 +29,6 @@ v-flex(xs12)
 
 <script>
 
-
 export default {
 
   props: {
@@ -41,7 +40,7 @@ export default {
       required: false
     }
   },
-  data() {
+  data () {
     return {
 
     }
@@ -49,17 +48,17 @@ export default {
   computed: {
 
     model: {
-      get() {
+      get () {
         return this.value
       },
-      set(val) {
+      set (val) {
         this.$emit('input', val)
       }
     }
   },
   methods: {
-    onSelectFile(e) {
-      console.log(e);
+    onSelectFile (e) {
+      console.log(e)
     }
   }
 }

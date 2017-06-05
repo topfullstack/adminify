@@ -57,14 +57,14 @@
 
 <script>
     export default {
-        data () {
-            return {
-                modal: false,
-                modal2: false,
-            }
-        },
-
-        mounted () {
+      data () {
+        return {
+          modal: false,
+          modal2: false
         }
+      },
+
+      mounted () {
+      }
     }
 </script>

@@ -39,7 +39,7 @@ v-app
       .px-3.py-2 
         a(href="https://github.com/wxs77577/adminify", target="_blank") Github 
         
-  v-toolbar.blue.darken-1(fixed,light)
+  v-toolbar.blue.darken-1(fixed,light) 
     v-toolbar-side-icon(light, @click.native.stop='mini = !mini')
     v-toolbar-title {{pageTitle}}
   main
@@ -51,13 +51,13 @@ v-app
 </template>
 
 <script>
-import Vue from 'vue';
+
 import { mapState } from 'vuex'
 
 // import menu from 'src/menu.js' //use local menu
 
 export default {
-  data() {
+  data () {
     return {
       mini: false,
       drawer: true
@@ -67,16 +67,15 @@ export default {
     ...mapState(['message', 'menu', 'pageTitle'])
   },
   methods: {
-    fetchMenu() {
-      //fetch menu from server
+    fetchMenu () {
+      // fetch menu from server
       // this.$http.get('menu').then(({data}) => this.$store.commit('setMenu', data))
     }
   },
 
-  created() {
+  created () {
     this.fetchMenu()
   }
 }
 </script>
-
 

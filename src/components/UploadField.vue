@@ -12,12 +12,12 @@
       title: String
     },
     methods: {
-      fileSelected(e) {
+      fileSelected (e) {
         if (this.selectedCallback) {
           if (e.target.files[0]) {
-            this.selectedCallback(e.target.files[0]);
+            this.selectedCallback(e.target.files[0])
           } else {
-            this.selectedCallback(null);
+            this.selectedCallback(null)
           }
         }
       }

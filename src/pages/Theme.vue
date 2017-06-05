@@ -9,17 +9,17 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       background: ''
     }
   },
   methods: {
-    changeBackground(val){
+    changeBackground (val) {
       document.body.style.background = val
     }
   },
-  mounted() {
+  mounted () {
     this.changeBackground('darkgreen')
   }
 }

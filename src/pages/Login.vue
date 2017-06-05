@@ -23,13 +23,13 @@ div
 
 export default {
 
-  data() {
+  data () {
     return {
       model: {
         username: 'admin',
-        password: 'admin'
+        password: '123456'
       },
-      
+
       fields: {
         username: { label: 'Username' },
         password: { label: 'Password', type: 'password' }
@@ -38,13 +38,13 @@ export default {
     }
   },
   methods: {
-    onSuccess(data) {
+    onSuccess (data) {
       this.$store.commit('setAuth', data)
       this.$router.replace('/')
     }
   },
 
-  mounted() {
+  mounted () {
   }
 }
 </script>

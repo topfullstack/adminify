@@ -42,24 +42,24 @@ export default {
       type: String,
       required: false,
       default: 'Cancel'
-    },
+    }
 
   },
-  data() {
+  data () {
     return {
       show: this.value
     }
   },
   watch: {
-    value(val) {
+    value (val) {
       this.show = val
     }
   },
   methods: {
-    onOk() {
+    onOk () {
       this.$emit('ok')
     },
-    onCancel() {
+    onCancel () {
       this.$emit('cancel')
       this.show = false
     }

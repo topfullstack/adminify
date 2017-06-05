@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import inflector from 'i'
 
-
 const storage = window.localStorage
 let helper = {}
 
@@ -14,13 +13,13 @@ helper.i = inflector()
  * localStorage
  */
 helper.ls = {
-  set(key, value){
+  set (key, value) {
     value = JSON.stringify(value)
     storage.setItem(key, value)
   },
-  get(key, defaultValue) {
+  get (key, defaultValue) {
     let value = storage.getItem(key, value)
-    if (value === null || value == 'undefined' || value == '') {
+    if (value === null || value === 'undefined' || value === '') {
       value = defaultValue
     } else {
       value = JSON.parse(value)

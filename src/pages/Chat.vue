@@ -23,7 +23,7 @@ const io = ws(global.config.url, {})
 const client = io.channel('chat')
 
 export default {
-  data() {
+  data () {
     return {
       list: [],
       message: '',
@@ -32,7 +32,7 @@ export default {
     }
   },
   methods: {
-    send() {
+    send () {
       if (this.message.length < 1) {
         return false
       }
@@ -40,23 +40,19 @@ export default {
       this.message = ''
     }
   },
-  mounted() {
-
-    
+  mounted () {
     client.connect((error, connected) => {
       if (error) {
         this.showWarning = true
         return false
         // do something
-        return
       }
       console.log('connected: ', connected)
       client.emit('message', 'hello')
       // all good
     })
     client.on('error', (message) => {
-      console.log(message);
-      
+      console.log(message)
     })
     client.on('message', (message) => {
       this.list.push(message)

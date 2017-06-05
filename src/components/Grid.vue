@@ -48,9 +48,9 @@ export default {
     resource: {
       required: true,
       type: String
-    },
+    }
   },
-  data() {
+  data () {
     return {
       filters: {
         model: {},
@@ -67,34 +67,33 @@ export default {
   },
   watch: {
     'data.currentPage': 'fetchData',
-    '$route': 'fetch',
+    '$route': 'fetch'
   },
   methods: {
-    doSearch() {
+    doSearch () {
       this.$route.query.query = JSON.stringify(this.filters.model)
       // this.search = search
       this.fetchData()
     },
-    filter(val, search) {
+    filter (val, search) {
       return true
       // this.search = search
       // this.fetchData()
     },
-    fetch() {
+    fetch () {
       this.fetchGrid()
       // this.fetchData()
     },
-    getColumnData(row, field) {
-      //process fields like `type.name`
+    getColumnData (row, field) {
+      // process fields like `type.name`
       let [l1, l2] = field.split('.')
       if (l2) {
         return row[l1] ? row[l1][l2] : null
       } else {
         return row[l1]
       }
-
     },
-    fetchGrid() {
+    fetchGrid () {
       this.$http.get(`${this.resource}/grid`, { params: { page: this.data.currentPage, ...this.$route.query } }).then(({ data }) => {
         this.columns = data.columns
         this.actions = data.actions
@@ -102,22 +101,22 @@ export default {
         this.fetchData()
       })
     },
-    fetchData() {
+    fetchData () {
       this.$http.get(`${this.resource}`, { params: { page: this.data.currentPage, ...this.$route.query } }).then(({ data }) => {
         this.data = data
       })
     },
-    remove(item) {
+    remove (item) {
       this.$alert('ok')
       console.log(`delete ${item.id}`)
     },
-    next() {
+    next () {
       console.log('next')
       this.data.currentPage++
     }
   },
 
-  created() {
+  created () {
     this.fetch()
   }
 }

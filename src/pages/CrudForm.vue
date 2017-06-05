@@ -15,53 +15,53 @@ v-layout
 
 export default {
 
-  data() {
+  data () {
     return {
       model: {},
       fields: {},
       rules: {},
-      messages: {},
+      messages: {}
     }
   },
   computed: {
-    method(){
+    method () {
       return this.isEdit ? 'patch' : 'post'
     },
-    action(){
+    action () {
       if (this.isEdit) {
         return `${this.resource}/${this.id}`
       } else {
         return `${this.resource}`
       }
     },
-    isEdit(){
+    isEdit () {
       return !!this.id
     },
-    resource(){
+    resource () {
       return this.$route.params.resource
     },
-    id(){
+    id () {
       return this.$route.params.id
-    },
-    
+    }
+
   },
   watch: {
     '$route': 'fetch',
     'model': 'updateFields'
   },
   methods: {
-    getFieldError(fieldName){
+    getFieldError (fieldName) {
       for (let k in this.errors) {
         let error = this.errors[k]
-        if (error.field == fieldName) {
+        if (error.field === fieldName) {
           return error.message
         }
       }
     },
-    updateFields(){
+    updateFields () {
 
     },
-    fetch(){
+    fetch () {
       this.$http.get(`${this.resource}/form`, {
         params: {id: this.id}
       }).then(({data}) => {
@@ -71,21 +71,21 @@ export default {
         this.messages = data.messages
       })
     },
-    onSubmit(){
-      
+    onSubmit () {
+
     },
-    onSuccess(data){
+    onSuccess (data) {
       this.$router.push({name: 'grid', params: {resource: this.resource}})
       if (data.id) {
         // this.$router.go(-1)
       }
     }
   },
-  created() {
-    let pageTitle = (this.isEdit ? 'Update' : 'Create') + ' ' + helper.i.titleize(helper.i.singularize(this.resource))
+  created () {
+    let pageTitle = (this.isEdit ? 'Update' : 'Create') + ' ' + global.helper.i.titleize(global.helper.i.singularize(this.resource))
     this.$store.commit('setPageTitle', pageTitle)
-  }, 
-  mounted() {
+  },
+  mounted () {
     // this.$bus.showMessage('success', 'success')
     this.fetch()
   }

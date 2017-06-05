@@ -1,26 +1,22 @@
 export default [
-  { "href": "/", "title": "Home", "icon": "home" },
-  { "href": "/crud/types", "title": "Types", "icon": "view_list" },
-  { "href": "/crud/pages", "title": "Pages", "icon": "view_list" },
-  { "href": "/crud/posts", "title": "Posts", "icon": "view_list" },
-  { "href": "/crud/posts/create", "title": "Create Post", "icon": "note_add" },
+  { 'href': '/', 'title': 'Home', 'icon': 'home' },
+  { 'href': '/crud/types', 'title': 'Types', 'icon': 'view_list' },
+  { 'href': '/crud/posts', 'title': 'Posts', 'icon': 'view_list' },
+  { 'href': '/crud/posts/create', 'title': 'Create Post', 'icon': 'note_add' },
 
+  { 'href': '/crud/comments', 'title': 'Comments', 'icon': 'view_list' },
+  { 'href': '/crud/users', 'title': 'Users', 'icon': 'people' },
 
-  { "href": "/crud/comments", "title": "Comments", "icon": "view_list" },
-  { "href": "/crud/users", "title": "Users", "icon": "people" },
-  
-  
-  
-  { "href": "/chat", "title": "Chat", "icon": "chat" },
+  { 'href': '/chat', 'title': 'Chat', 'icon': 'chat' },
   {
-    "title": "Pages",
-    "icon": "domain",
-    "items": [
-      { "href": "/example", "title": "Example" },
-      { "href": "/about", "title": "About" }
+    'title': 'Pages',
+    'icon': 'domain',
+    'items': [
+      { 'href': '/example', 'title': 'Example' },
+      { 'href': '/about', 'title': 'About' }
     ]
   },
-  { "href": "/settings", "title": "Settings", "icon": "settings" },
+  { 'href': '/settings', 'title': 'Settings', 'icon': 'settings' },
 
-  { "href": "/login", "icon": "lock", "title": "Logout" }
+  { 'href': '/login', 'icon': 'lock', 'title': 'Logout' }
 ]

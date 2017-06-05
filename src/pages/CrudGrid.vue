@@ -38,78 +38,77 @@ div
 
 const getDefaultData = () => {
   return {
-      form: {
-        model: {},
-        fields: {},
-        rules: {},
-        messages: {},
-      },
-      filters: {
-        model: {},
-        fields: {}
-      },
-      loading: false,
-      columns: [], //fetch grid setup params from server if `columns` is empty
-      actions: {},
-      options: {
-        sort: 'id',
-        create: false,
-        update: true,
-        delete: false
-      },
-      pagination: {
-        page: 1,
-        rowsPerPage: 10,
-        sortBy: 'id',
-        descending: true,
-        totalItems: 0
-      },
-      isShowEdit: false,
-      currentItem: false,
-      items: [],
-    }
+    form: {
+      model: {},
+      fields: {},
+      rules: {},
+      messages: {}
+    },
+    filters: {
+      model: {},
+      fields: {}
+    },
+    loading: false,
+    columns: [], // fetch grid setup params from server if `columns` is empty
+    actions: {},
+    options: {
+      sort: 'id',
+      create: false,
+      update: true,
+      delete: false
+    },
+    pagination: {
+      page: 1,
+      rowsPerPage: 10,
+      sortBy: 'id',
+      descending: true,
+      totalItems: 0
+    },
+    isShowEdit: false,
+    currentItem: false,
+    items: []
+  }
 }
 export default {
-  
+
   data: getDefaultData,
-  
+
   watch: {
-    'pagination.page'(val){
+    'pagination.page' (val) {
       this.fetchData()
     },
-    'pagination.sortBy'(val){
+    'pagination.sortBy' (val) {
       this.fetchData()
     },
-    'pagination.descending'(val){
+    'pagination.descending' (val) {
       this.fetchData()
     },
-    
-    '$route.params': 'refresh',
+
+    '$route.params': 'refresh'
     // '$route.query': 'updateRoute'
   },
   methods: {
-    fetchForm(item){
+    fetchForm (item) {
       this.$http.get(`${this.resource}/form`, {
         params: {id: item.id}
       }).then(({data}) => {
         this.form = data
       })
     },
-    onSaveEdit(data){
+    onSaveEdit (data) {
       if (data.id) {
         this.isShowEdit = false
         this.fetchData()
       }
     },
-    showEdit(item){
-      
+    showEdit (item) {
       this.currentItem = item
       this.fetchForm(item)
       this.isShowEdit = true
     },
-    preFetch(){
+    preFetch () {
       let sort = this.pagination.sortBy
-      if (this.pagination.descending){
+      if (this.pagination.descending) {
         sort = '-' + sort
       }
       this.$route.query.query = JSON.stringify(this.filters.model)
@@ -117,65 +116,62 @@ export default {
       this.$route.query.perPage = this.pagination.rowsPerPage
       this.$route.query.page = this.pagination.page
     },
-    updateRoute(){
+    updateRoute () {
       this.$route.query.keepLayout = true
-      console.log('update route');
+      console.log('update route')
       this.$router.go({
         path: this.$route.path,
         params: this.$route.params,
         query: this.$route.query
       })
     },
-    doSearch() {
+    doSearch () {
       this.pagination.page = 1
       this.fetchData()
     },
-    filter(val, search) {
+    filter (val, search) {
       return true
       // this.search = search
       // this.fetchData()
     },
-    refresh() {
+    refresh () {
       Object.assign(this.$data, getDefaultData())
-      this.fetchGrid().then(() => this.fetchData())
+      this.fetchGrid()
     },
-    fetch() {
-
+    fetch () {
       if (this.columns.length <= 0) {
-        //fetch grid params from server: e.g. /crud/users/grid
+        // fetch grid params from server: e.g. /crud/users/grid
         this.fetchGrid()
       } else {
-        //or define grid params manually
+        // or define grid params manually
         this.fetchData()
       }
     },
-    getColumnData(row, field) {
-      //process fields like `type.name`
+    getColumnData (row, field) {
+      // process fields like `type.name`
       let [l1, l2] = field.split('.')
       if (l2) {
         return row[l1] ? row[l1][l2] : null
       } else {
         return row[l1]
       }
-
     },
-    fetchGrid() {
-      
+    fetchGrid () {
       return new Promise((resolve, reject) => {
         this.$http.get(`${this.resource}/grid`).then(({ data }) => {
           this.columns = data.columns
           this.actions = data.actions
           this.filters = data.filters
           this.options = data.options || {}
-          
+
           if (this.options && this.options.sort) {
             let sortData = this.options.sort.split('-')
             let desc = sortData.length > 1
             let sortField = sortData.pop()
-            
-            if (sortField.indexOf('.') < 0) {
-              sortField = sortField
-            }
+
+            // if (sortField.indexOf('.') < 0) {
+            //   sortField = sortField
+            // }
             this.pagination.sort = sortField
             this.pagination.descending = desc
           }
@@ -183,36 +179,36 @@ export default {
         })
       })
     },
-    fetchData() {
+    fetchData () {
       this.preFetch()
       this.$http.get(`${this.resource}`, {params: this.$route.query}).then(({ data }) => {
         this.items = data.data
         this.pagination.totalItems = data.total
       })
     },
-    remove(item) {
+    remove (item) {
       // this.$alert('ok')
       console.log(`delete ${item.id}`)
     },
-    next() {
+    next () {
       console.log('next')
       this.pagination.page++
     }
   },
   computed: {
-    resource() {
+    resource () {
       return this.$route.params.resource
     },
-    totalPages(){
+    totalPages () {
       return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage)
     }
   },
 
-  mounted() {
+  mounted () {
 
   },
-  created() {
-    this.$store.commit('setPageTitle', helper.i.titleize(helper.i.pluralize(this.resource)))
+  created () {
+    this.$store.commit('setPageTitle', global.helper.i.titleize(global.helper.i.pluralize(this.resource)))
     this.fetchGrid().then(() => this.fetchData())
     // this.fetch()
   }

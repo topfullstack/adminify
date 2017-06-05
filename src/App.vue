@@ -9,18 +9,17 @@
 <script>
 
 export default {
-  data() {
+  data () {
     return {
-      
+
     }
   },
   methods: {
-   
+
   },
-  created() {
+  created () {
     // this.$http.get('/users').then(({data}) => console.log(data))
   }
 }
 </script>
-
 

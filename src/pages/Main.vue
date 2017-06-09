@@ -1,6 +1,6 @@
 <template lang="pug">
 v-app
-  v-navigation-drawer(light,v-model='drawer',:mini-variant.sync="mini", persistent)
+  v-navigation-drawer(light,v-model='drawer',:mini-variant.sync="mini", persistent,enable-resize-watcher)
     .pa-3.text-xs-center(v-show="!mini")
       div.display-2.py-4 Adminify
       p An admin dashboard based on Vuetify
@@ -40,7 +40,7 @@ v-app
         a(href="https://github.com/wxs77577/adminify", target="_blank") Github 
         
   v-toolbar.blue.darken-1(fixed,light) 
-    v-toolbar-side-icon(light, @click.native.stop='mini = !mini')
+    v-toolbar-side-icon(light, @click.native.stop='drawer = !drawer')
     v-toolbar-title {{pageTitle}}
   main
     v-container.pa-4(fluid)

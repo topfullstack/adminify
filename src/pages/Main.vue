@@ -39,9 +39,15 @@ v-app
       .px-3.py-2 
         a(href="https://github.com/wxs77577/adminify", target="_blank") Github 
         
-  v-toolbar.blue.darken-1(fixed,light) 
+  v-toolbar.darken-1(fixed,light,:class="theme") 
     v-toolbar-side-icon(light, @click.native.stop='drawer = !drawer')
     v-toolbar-title {{pageTitle}}
+    v-menu(offset-y)
+      v-btn(icon, light, slot="activator")
+        v-icon format_paint
+      v-list
+        v-list-item(v-for="n in ['blue', 'green', 'purple', 'red']")
+          v-list-tile(:class="n",@mouseover.native="theme = n")
   main
     v-container.pa-4(fluid)
         v-alert(v-bind='message', v-model='message.body', dismissible) {{message.body}}
@@ -59,6 +65,7 @@ import { mapState } from 'vuex'
 export default {
   data () {
     return {
+      theme: 'primary',
       mini: false,
       drawer: true
     }

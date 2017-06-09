@@ -6,8 +6,8 @@ v-layout
         
         v-btn(light, class="grey",@click.native="$root.back()") 
           v-icon(light, left) chevron_left 
-          span Back
-        v-btn(primary, light, type='submit') Submit
+          span {{$t('Back')}}
+        v-btn(primary, light, type='submit') {{$t('Submit')}}
           v-icon(right, light) send
 </template>
 

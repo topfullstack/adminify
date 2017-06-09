@@ -2,7 +2,7 @@
 v-flex(xs12)
   v-select(v-if="field.type == 'select'", v-bind:items='field.options', v-model='model', v-bind='field')
   template(v-else-if="['radios', 'checkboxes'].indexOf(field.type) > -1")
-    p {{field.label}}
+    p {{$t(field.label)}}
     v-layout(row, wrap)
       v-flex(v-bind="{[field.width]: true}",xs12, v-for='option in field.options',:key="field.value")
         component(
@@ -15,16 +15,16 @@ v-flex(xs12)
         )
   template(v-else-if="['date', 'datetime', 'time'].indexOf(field.type) > -1")
     v-menu
-      v-text-field(slot='activator', :label='field.label', v-model='model')
+      v-text-field(slot='activator', v-model='model', :label="$t(field.label)")
       v-date-picker(v-model='model', no-title, scrollable, actions)
   div(v-else-if="field.type == 'html'")
-    label {{field.label}}
+    label {{$t(field.label)}}
     .pt-2
       quill-editor(v-model='model')
   //todo dropzone
   dropzone#myVueDropzone(v-else-if="['file', 'image', 'video'].indexOf(field.type) > 10", url="/")
     input(type='hidden', v-model='model')
-  v-text-field(v-else, v-model='model', v-bind='field', type="text",:multiLine="field.type == 'textarea'")
+  v-text-field(v-else, v-model='model', v-bind='field', :label="$t(field.label)" :placeholder="$t(field.placeholder)" type="text",:multiLine="field.type == 'textarea'")
 </template>
 
 <script>

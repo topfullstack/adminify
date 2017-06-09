@@ -159,6 +159,9 @@ export default {
     fetchGrid () {
       return new Promise((resolve, reject) => {
         this.$http.get(`${this.resource}/grid`).then(({ data }) => {
+          for (let k in data.columns) {
+            data.columns[k].text = this.$t(data.columns[k].text)
+          }
           this.columns = data.columns
           this.actions = data.actions
           this.filters = data.filters

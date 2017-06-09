@@ -18,7 +18,7 @@ div
       slot
       v-flex.pt-2.actions(xs12)
         slot(name='buttons')
-          v-btn.ma-0(primary, light, type='submit') {{submitButtonText}}
+          v-btn.ma-0(primary, light, type='submit') {{$t(submitButtonText)}}
             v-icon(right, light) {{submitButtonIcon}}
 </template>
 

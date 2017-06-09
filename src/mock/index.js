@@ -101,10 +101,11 @@ mock.onGet('/settings/form').reply(({ params }) => {
         type: 'checkboxes',
         width: 'md3',
         options: [
-        {text: 'Enabled', value: 1},
-        {text: 'Disabled', value: 2}
+        {text: 'Vue', value: 1},
+        {text: 'React', value: 2},
+        {text: 'Angular', value: 3}
         ]},
-      'description': {label: 'Description', type: 'textarea'},
+      'description': {label: 'Description(Textarea)', type: 'textarea'},
       'intro': {label: 'Intro', type: 'html'}
     }
   }]

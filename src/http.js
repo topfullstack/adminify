@@ -10,8 +10,8 @@ if (!config.debug.mock) {
 
 var http = axios.create({
   baseURL: config.api,
-  timeout: 1000,
-  headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+  timeout: 1000
+  // headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') }
 })
 http.interceptors.request.use(function (request) {
   return request

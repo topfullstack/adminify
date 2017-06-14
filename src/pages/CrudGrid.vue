@@ -136,7 +136,8 @@ export default {
     },
     refresh () {
       Object.assign(this.$data, getDefaultData())
-      this.fetchGrid()
+      this.fetchGrid().then(() => {})
+      this.fetchData()
     },
     fetch () {
       if (this.columns.length <= 0) {
@@ -212,7 +213,8 @@ export default {
   },
   created () {
     this.$store.commit('setPageTitle', global.helper.i.titleize(global.helper.i.pluralize(this.resource)))
-    this.fetchGrid().then(() => this.fetchData())
+    this.fetchGrid().then(() => {})
+    this.fetchData()
     // this.fetch()
   }
 

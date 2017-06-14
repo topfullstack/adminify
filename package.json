@@ -13,14 +13,15 @@
   },
   "dependencies": {
     "adonis-websocket-client": "^1.0.2",
+    "babel-runtime": "^6.23.0",
     "i": "^0.3.5",
     "indicative": "^2.2.1",
+    "vue": "^2.3.3",
     "vue-i18n": "^6.1.1",
     "vue-quill-editor": "^2.1.6",
+    "vue-router": "^2.3.1",
     "vue-timeago": "^3.3.1",
-    "vue2-dropzone": "^2.0.0",
-    "vue": "^2.3.3",
-    "vue-router": "^2.3.1"
+    "vue2-dropzone": "^2.0.0"
   },
   "devDependencies": {
     "Validator": "^1.0.4",

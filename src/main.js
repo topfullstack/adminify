@@ -13,6 +13,7 @@ Vue.use(Vuetify)
 import './http'
 
 import 'vuetify/src/stylus/main.styl'
+import 'vuetify/src/stylus/settings/_colors.styl'
 import '@/styles/main.styl'
 
 import App from './App.vue'

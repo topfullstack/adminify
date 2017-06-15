@@ -1,9 +1,15 @@
 <template lang="pug">
 v-app
-  v-navigation-drawer(light,v-model='drawer',:mini-variant.sync="mini", persistent,enable-resize-watcher)
-    .pa-3.text-xs-center(v-show="!mini")
+  v-navigation-drawer(v-model='drawer',:mini-variant.sync="mini", persistent,enable-resize-watcher, :light="!dark")
+    .pa-3.text-xs-center(v-show="!mini", :class="{'light--text': dark}")
       div.display-2.py-4 Adminify
       p {{$t('An admin dashboard based on Vuetify')}}
+      div(style="padding-left:5em")
+        v-switch(:label="(!dark ? 'Light' : 'Dark') + ' Theme'", v-model="dark", :light="dark", hide-details)
+      div
+        v-btn(light, tag="a", href="https://github.com/wxs77577/adminify", primary) 
+          v-icon(left, light) star
+          span Github 
     .pa-3.text-xs-center(v-show="mini")
       .display-2 A
     v-divider
@@ -12,45 +18,44 @@ v-app
         v-list-group(v-if='item.items', v-bind:group='item.group')
           v-list-tile(:href='item.href', slot='item', :title="item.title")
             v-list-tile-action
-              v-icon {{ item.icon }}
+              v-icon(:light="dark") {{ item.icon }}
             v-list-tile-content
               v-list-tile-title {{ $t(item.title) }}
             v-list-tile-action
-              v-icon keyboard_arrow_down
+              v-icon(:light="dark") keyboard_arrow_down
           v-list-item(v-for='subItem in item.items', :key='subItem.href')
             v-list-tile(:href='subItem.href', v-bind:router='!subItem.target', ripple, v-bind:disabled='subItem.disabled', v-bind:target='subItem.target')
               v-list-tile-action(v-if='subItem.icon')
                 v-icon.success--text {{ subItem.icon }}
               v-list-tile-content
                 v-list-tile-title {{ $t(subItem.title) }}
-        v-subheader(v-else-if='item.header', :title="item.title") {{ item.header }}
+        v-subheader(v-else-if='item.header', :light="dark") {{ item.header }}
         v-divider(v-else-if='item.divider')
         v-list-item(v-else)
           v-list-tile(:href='item.href', router, ripple, v-bind:disabled='item.disabled', :title="item.title")
             v-list-tile-action
-              v-icon {{ item.icon }}
+              v-icon(:light="dark") {{ item.icon }}
             v-list-tile-content
               v-list-tile-title {{ $t(item.title) }}
             v-list-tile-action(v-if='item.subAction')
               v-icon.success--text {{ item.subAction }}
-    
-    .fixed-bottom(v-show="!mini")
-      v-divider
-      .px-3.py-2 
-        a(href="https://github.com/wxs77577/adminify", target="_blank") Github 
         
   v-toolbar.darken-1(fixed,light,:class="theme") 
     v-toolbar-side-icon(light, @click.native.stop='drawer = !drawer')
     v-toolbar-title {{$t(pageTitle)}}
+    v-toolbar-items
+      v-toolbar-item Theme
+      v-toolbar-item Language
     v-menu(offset-y)
-      v-btn(icon, light, slot="activator")
-        v-icon format_paint
+      v-toolbar-item(slot="activator") Theme
       v-list
         v-list-item(v-for="n in ['blue', 'green', 'purple', 'red']")
           v-list-tile(:class="n",@mouseover.native="theme = n")
     v-menu(offset-y)
-      v-btn(icon, light, slot="activator")
-        v-icon language
+      div.light--text(slot="activator")
+        v-icon(light) language
+        span Language
+        
       v-list
         v-list-item(v-for="lang in ['zh-CN', 'en-US']")
           v-list-tile(@mouseover.native="changeLocale(lang)")
@@ -67,11 +72,10 @@ v-app
 
 import { mapState } from 'vuex'
 
-// import menu from 'src/menu.js' //use local menu
-
 export default {
   data () {
     return {
+      dark: false,
       theme: 'primary',
       mini: false,
       drawer: true

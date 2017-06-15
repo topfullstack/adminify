@@ -74,6 +74,9 @@ export default {
   data: getDefaultData,
 
   watch: {
+    '$i18n.locale' (val) {
+      this.fetchGrid()
+    },
     'pagination.page' (val) {
       this.fetchData()
     },
@@ -83,7 +86,6 @@ export default {
     'pagination.descending' (val) {
       this.fetchData()
     },
-
     '$route.params': 'refresh'
     // '$route.query': 'updateRoute'
   },

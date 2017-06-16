@@ -43,23 +43,23 @@ v-app
   v-toolbar.darken-1(fixed,light,:class="theme") 
     v-toolbar-side-icon(light, @click.native.stop='drawer = !drawer')
     v-toolbar-title {{$t(pageTitle)}}
-    v-toolbar-items
-      v-toolbar-item Theme
-      v-toolbar-item Language
+    v-spacer
     v-menu(offset-y)
-      v-toolbar-item(slot="activator") Theme
-      v-list
-        v-list-item(v-for="n in ['blue', 'green', 'purple', 'red']")
-          v-list-tile(:class="n",@mouseover.native="theme = n")
-    v-menu(offset-y)
-      div.light--text(slot="activator")
+      v-btn(icon, light, slot="activator")
         v-icon(light) language
-        span Language
-        
       v-list
-        v-list-item(v-for="lang in ['zh-CN', 'en-US']")
+        v-list-item(v-for="lang in locales")
           v-list-tile(@mouseover.native="changeLocale(lang)")
             v-list-tile-title {{lang}}
+    v-menu(offset-y)
+      v-btn(icon, light, slot="activator")
+        v-icon(light) format_paint
+      v-list
+        v-list-item(v-for="n in colors")
+          v-list-tile(:class="n",@mouseover.native="theme = n")
+    
+        
+      
   main
     v-container.pa-4(fluid)
         v-alert(v-bind='message', v-model='message.body', dismissible) {{message.body}}
@@ -75,10 +75,12 @@ import { mapState } from 'vuex'
 export default {
   data () {
     return {
-      dark: false,
+      dark: true,
       theme: 'primary',
       mini: false,
-      drawer: true
+      drawer: true,
+      locales: ['en-US', 'zh-CN'],
+      colors: ['blue', 'green', 'purple', 'red']
     }
   },
   computed: {

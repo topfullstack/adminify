@@ -2,6 +2,7 @@ const baseUrl = 'http://localhost:3333'
 const config = {
   locale: 'en-US', // en-US, zh-CN
   url: baseUrl,
+  ajaxUploadUrl: `${baseUrl}/admin/api/upload`,
   debug: {
     mock: true, // enable mock
     http: true // http request log

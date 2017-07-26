@@ -12,6 +12,7 @@ locales.forEach(v => {
 })
 const i18n = new VueI18n({
   locale: helper.ls.get('locale', config.locale),
+  silentTranslationWarn: true,
   messages
 })
 

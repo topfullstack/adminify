@@ -1,14 +1,13 @@
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
-import Mock from 'mockjs'
 
 import data from './data'
 
 let mock = new MockAdapter(axios, { delayResponse: 80 })
 
-mock.onGet('/users').reply(200, Mock.mock({
+mock.onGet('/users').reply(200, {
   data: data.users.slice(0, 10)
-}))
+})
 
 mock.onPost('/login').reply(200, {
   user: data.users[0],

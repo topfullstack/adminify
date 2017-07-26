@@ -7,7 +7,7 @@ div
       v-form.row.jr(:inline='true', v-model='filters.model', v-if="filters.fields", :fields='filters.fields', @submit='doSearch', submitButtonText='Search', submitButtonIcon='search')
   v-card
     div
-      v-btn(router,fab,absolute,top,small,left,dark,class="green", :to="{name: 'create', params: {resource}}",v-if="options.create !== false")
+      v-btn(router,fab,absolute,top,right,dark,class="green", :to="{name: 'create', params: {resource}}",v-if="options.create !== false")
         v-icon add
     v-data-table(:headers='columns', :items='items',:total-items="pagination.totalItems",hide-actions, :pagination.sync="pagination", :loading="loading")
       template(slot='items', scope='props')
@@ -17,17 +17,17 @@ div
             template(v-for="(value, action) in actions")
               v-btn(v-if="['edit', 'delete'].indexOf(action) < 0", router,primary,fab,small,dark,:to="{name: action, params: {resource,id:props.item.id}}")
                 v-icon {{action.icon ? action.icon : action}}
-            //- v-btn(v-if="options.edit !== false",router,fab,small,:to="{name: 'edit', params: {resource,id:props.item.id}}")
+            v-btn(v-if="options.edit !== false",router,dark,primary,fab,small,:to="{name: 'edit', params: {resource,id:props.item.id}}")
               v-icon edit
-            v-btn(v-if="options.edit !== false",dark,fab,primary,small,@click.native="showEdit(props.item)")
+            // v-btn(v-if="options.edit !== false",dark,fab,primary,small,@click.native="showEdit(props.item, $event)")
               v-icon() edit
-            v-btn(v-if="options.delete !== false",dark,error,fab,small,@click="remove(props.item)")
+            v-btn(v-if="options.delete !== false",fab,small,@click="remove(props.item)")
               v-icon() delete
     .jc
       v-pagination.ma-3(v-model='pagination.page', :length='totalPages', circle)
 
     
-  v-dialog(v-model="isShowEdit", persistent, width="options.inlineEditWidth")
+  v-dialog(v-model="isShowEdit", width="70%")
     v-card
       v-card-title {{$t('Edit')}} \#{{currentItem.id}}
       v-card-text
@@ -105,10 +105,11 @@ export default {
         this.fetchData()
       }
     },
-    showEdit (item) {
+    showEdit (item, e) {
       this.currentItem = item
       this.fetchForm(item)
       this.isShowEdit = true
+      e.stopPropagation()
     },
     preFetch () {
       let sort = this.pagination.sortBy

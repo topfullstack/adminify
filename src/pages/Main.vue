@@ -31,7 +31,6 @@ v-app(:dark="dark",standalone)
               v-list-tile-title {{ $t(subItem.title) }}
         v-subheader(v-else-if='item.header') {{ item.header }}
         v-divider(v-else-if='item.divider')
-      
         v-list-tile(v-else,:to='item.href', router, ripple, v-bind:disabled='item.disabled', :title="item.title")
           v-list-tile-action
             v-icon() {{ item.icon }}
@@ -39,7 +38,6 @@ v-app(:dark="dark",standalone)
             v-list-tile-title {{ $t(item.title) }}
           v-list-tile-action(v-if='item.subAction')
             v-icon.success--text {{ item.subAction }}
-        
   v-toolbar.darken-1(fixed,dark,:class="theme") 
     v-toolbar-side-icon(dark, @click.native.stop='drawer = !drawer')
     v-toolbar-title {{$t(pageTitle)}}
@@ -55,9 +53,6 @@ v-app(:dark="dark",standalone)
         v-icon(dark) format_paint
       v-list
         v-list-tile(v-for="n in colors", :key="n", :class="n",@mouseover.native="theme = n")
-    
-        
-      
   main
     v-container.pa-4(fluid)
         v-alert(v-bind='message', v-model='message.body', dismissible) {{message.body}}

@@ -5,7 +5,7 @@ const config = {
   ajaxUploadUrl: `${baseUrl}/admin/api/upload`,
   debug: {
     mock: true, // enable mock
-    http: true // http request log
+    http: false // http request log
   },
   api: `${baseUrl}/admin/api`
   // locale: 'en', //en

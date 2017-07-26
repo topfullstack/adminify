@@ -10,8 +10,9 @@ div
           v-card-text
             v-field(v-for='(field, name) in fields', :key='name', :name="name", :field="field", v-model="model[name]")
 
-    v-layout(justify-end, v-bind="{[inline? 'row': 'column']: true}", v-if="!groupBy")
-      v-field(v-for='(field, name) in fields', :key='name', :name="name" :field="field", v-model="model[name]")
+    v-layout(v-bind="{[inline? 'row': 'column']: true}", v-if="!groupBy")
+      
+      v-field(v-for='(field, name) in fields', :key='name', :name="name", :field="field", v-model="model[name]")
         
       v-alert.py-2(error, v-model='hasError')
         div(v-for='error in errors')  {{error.message}}

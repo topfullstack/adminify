@@ -1,5 +1,5 @@
 <template lang="pug">
-div
+div()
   v-layout
     v-flex(md4)
       
@@ -13,14 +13,15 @@ div
       template(slot='items', scope='props')
         tr
           td(:class="column.left? '': 'text-xs-right'", v-for='column in columns', v-html="getColumnData(props.item, column.value)")
-          td(v-if='actions !== false', width='180')
+          td(v-if='actions !== false', width='160')
             template(v-for="(value, action) in actions")
               v-btn(v-if="['edit', 'delete'].indexOf(action) < 0", router,primary,fab,small,dark,:to="{name: action, params: {resource,id:props.item.id}}")
                 v-icon {{action.icon ? action.icon : action}}
-            v-btn(v-if="options.edit !== false",router,dark,primary,fab,small,:to="{name: 'edit', params: {resource,id:props.item.id}}")
+            v-btn(v-if="options.edit !== false",dark,primary,fab,small,:to="{name: 'edit', params: {resource,id:props.item.id}}")
               v-icon edit
-            // v-btn(v-if="options.edit !== false",dark,fab,primary,small,@click.native="showEdit(props.item, $event)")
-              v-icon() edit
+            // also you can try this: inline edit
+            // v-btn(v-if="options.edit !== false",dark,fab,success,small,@click.native.stop="showEdit(props.item)")
+            //   v-icon() edit
             v-btn(v-if="options.delete !== false",fab,small,@click="remove(props.item)")
               v-icon() delete
     .jc
@@ -48,7 +49,7 @@ const getDefaultData = () => {
     },
     filters: {
       model: {},
-      fields: {}
+      fields: null
     },
     loading: false,
     columns: [], // fetch grid setup params from server if `columns` is empty
@@ -105,11 +106,10 @@ export default {
         this.fetchData()
       }
     },
-    showEdit (item, e) {
+    showEdit (item) {
       this.currentItem = item
       this.fetchForm(item)
       this.isShowEdit = true
-      e.stopPropagation()
     },
     preFetch () {
       let sort = this.pagination.sortBy
@@ -207,7 +207,7 @@ export default {
       console.log(`delete ${item.id}`)
     },
     next () {
-      console.log('next')
+      // console.log('next')
       this.pagination.page++
     }
   },

@@ -1,14 +1,14 @@
 <template lang="pug">
-v-app
-  v-navigation-drawer(v-model='drawer',:mini-variant.sync="mini", persistent,enable-resize-watcher, :light="!dark")
-    .pa-3.text-xs-center(v-show="!mini", :class="{'light--text': dark}")
+v-app(:dark="dark",standalone)
+  v-navigation-drawer(v-model='drawer',:mini-variant.sync="mini", persistent,enable-resize-watcher, :dark="dark")
+    .pa-3.text-xs-center(v-show="!mini")
       div.display-2.py-4 Adminify
       p {{$t('An admin dashboard based on Vuetify')}}
       div(style="padding-left:5em")
-        v-switch(:label="(!dark ? 'Light' : 'Dark') + ' Theme'", v-model="dark", :light="dark", hide-details)
+        v-switch(:label="(!dark ? 'Light' : 'Dark') + ' Theme'", v-model="dark", :dark="dark", hide-details)
       div
-        v-btn(light, tag="a", href="https://github.com/wxs77577/adminify", primary) 
-          v-icon(left, light) star
+        v-btn(dark, tag="a", href="https://github.com/wxs77577/adminify", primary) 
+          v-icon(left, dark) star
           span Github 
     .pa-3.text-xs-center(v-show="mini")
       .display-2 A
@@ -16,47 +16,45 @@ v-app
     v-list(dense)
       template(v-for='item in menu')
         v-list-group(v-if='item.items', v-bind:group='item.group')
-          v-list-tile(:href='item.href', slot='item', :title="item.title")
+          v-list-tile(:to='item.href', slot='item', :title="item.title")
             v-list-tile-action
-              v-icon(:light="dark") {{ item.icon }}
+              v-icon() {{ item.icon }}
             v-list-tile-content
               v-list-tile-title {{ $t(item.title) }}
             v-list-tile-action
-              v-icon(:light="dark") keyboard_arrow_down
-          v-list-item(v-for='subItem in item.items', :key='subItem.href')
-            v-list-tile(:href='subItem.href', v-bind:router='!subItem.target', ripple, v-bind:disabled='subItem.disabled', v-bind:target='subItem.target')
-              v-list-tile-action(v-if='subItem.icon')
-                v-icon.success--text {{ subItem.icon }}
-              v-list-tile-content
-                v-list-tile-title {{ $t(subItem.title) }}
-        v-subheader(v-else-if='item.header', :light="dark") {{ item.header }}
+              v-icon() keyboard_arrow_down
+          
+          v-list-tile(v-for='subItem in item.items', :key='subItem.href',:to='subItem.href', v-bind:router='!subItem.target', ripple, v-bind:disabled='subItem.disabled', v-bind:target='subItem.target')
+            v-list-tile-action(v-if='subItem.icon')
+              v-icon.success--text {{ subItem.icon }}
+            v-list-tile-content
+              v-list-tile-title {{ $t(subItem.title) }}
+        v-subheader(v-else-if='item.header') {{ item.header }}
         v-divider(v-else-if='item.divider')
-        v-list-item(v-else)
-          v-list-tile(:href='item.href', router, ripple, v-bind:disabled='item.disabled', :title="item.title")
-            v-list-tile-action
-              v-icon(:light="dark") {{ item.icon }}
-            v-list-tile-content
-              v-list-tile-title {{ $t(item.title) }}
-            v-list-tile-action(v-if='item.subAction')
-              v-icon.success--text {{ item.subAction }}
+      
+        v-list-tile(v-else,:to='item.href', router, ripple, v-bind:disabled='item.disabled', :title="item.title")
+          v-list-tile-action
+            v-icon() {{ item.icon }}
+          v-list-tile-content
+            v-list-tile-title {{ $t(item.title) }}
+          v-list-tile-action(v-if='item.subAction')
+            v-icon.success--text {{ item.subAction }}
         
-  v-toolbar.darken-1(fixed,light,:class="theme") 
-    v-toolbar-side-icon(light, @click.native.stop='drawer = !drawer')
+  v-toolbar.darken-1(fixed,dark,:class="theme") 
+    v-toolbar-side-icon(dark, @click.native.stop='drawer = !drawer')
     v-toolbar-title {{$t(pageTitle)}}
     v-spacer
     v-menu(offset-y)
-      v-btn(icon, light, slot="activator")
-        v-icon(light) language
+      v-btn(icon, dark, slot="activator")
+        v-icon(dark) language
       v-list
-        v-list-item(v-for="lang in locales")
-          v-list-tile(@mouseover.native="changeLocale(lang)")
-            v-list-tile-title {{lang}}
+        v-list-tile(v-for="lang in locales" :key="lang",@mouseover.native="changeLocale(lang)")
+          v-list-tile-title {{lang}}
     v-menu(offset-y)
-      v-btn(icon, light, slot="activator")
-        v-icon(light) format_paint
+      v-btn(icon, dark, slot="activator")
+        v-icon(dark) format_paint
       v-list
-        v-list-item(v-for="n in colors")
-          v-list-tile(:class="n",@mouseover.native="theme = n")
+        v-list-tile(v-for="n in colors", :key="n", :class="n",@mouseover.native="theme = n")
     
         
       
@@ -75,7 +73,7 @@ import { mapState } from 'vuex'
 export default {
   data () {
     return {
-      dark: true,
+      dark: false,
       theme: 'primary',
       mini: false,
       drawer: true,

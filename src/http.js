@@ -3,10 +3,10 @@ import axios from 'axios'
 import config from './config'
 
 // enable mock
-import mock from './mock'
-if (!config.debug.mock) {
-  mock.restore()
-}
+// import mock from './mock'
+// if (!config.debug.mock) {
+//   mock.restore()
+// }
 
 var http = axios.create({
   baseURL: config.api,

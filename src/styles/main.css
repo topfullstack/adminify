@@ -25,3 +25,7 @@ table.table tbody td{
   width:300px;
   bottom:0
 }
+.crud-grid-thumb{
+  margin:0.5em;
+  max-height:5em;
+}

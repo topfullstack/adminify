@@ -1,10 +1,10 @@
 <template lang="pug">
 v-flex(xs12)
-  v-select(v-if="field.type == 'select'", v-bind:items='field.options', v-model='model', v-bind='field')
+  v-select(v-if="['select', 'select2'].includes(field.type)", :items='field.choices', v-model='model', v-bind='field')
   template(v-else-if="['radios', 'checkboxes'].indexOf(field.type) > -1")
     p {{$t(field.label)}}
     v-layout(row, wrap)
-      v-flex(v-bind="{[field.width]: true}",xs12, v-for='option in field.options',:key="field.value")
+      v-flex(v-bind="{[field.width]: true}",xs12, v-for='option in field.choices',:key="field.value")
         component(
           v-model='model', 
           hide-details,
@@ -17,13 +17,16 @@ v-flex(xs12)
     v-menu
       v-text-field(slot='activator', v-model='model', :label="$t(field.label)")
       v-date-picker(v-model='model', no-title, scrollable, actions)
-  div(v-else-if="field.type == 'html'")
+  div(:class="inputGroupClass",v-else-if="field.type == 'html'")
     label {{$t(field.label)}}
-    .pt-2
+    div.pt-2
       quill-editor(v-model='model')
   //todo dropzone
-  dropzone#myVueDropzone(v-else-if="['file', 'image', 'video'].indexOf(field.type) > 10", url="/")
-    input(type='hidden', v-model='model')
+  div(:class="inputGroupClass",v-else-if="['file', 'image', 'video'].includes(field.type)")
+    label {{$t(field.label)}}
+    div.pt-2
+      dropzone(:id="'dropzone_' + name", :url="$store.state.config.ajaxUploadUrl")
+        input(type='hidden', v-model='model')
   v-text-field(v-else, v-model='model', v-bind='field', :label="$t(field.label)" :placeholder="$t(field.placeholder)" type="text",:multiLine="field.type == 'textarea'")
 </template>
 
@@ -36,13 +39,17 @@ export default {
       type: Object,
       required: true
     },
+    name: {
+      type: String,
+      required: false
+    },
     value: {
       required: false
     }
   },
   data () {
     return {
-
+      inputGroupClass: 'input-group input-group--dirty input-group--text-field'
     }
   },
   computed: {

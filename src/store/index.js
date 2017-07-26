@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import menu from '../menu'
-
+import config from '../config'
 Vue.use(Vuex)
 
 const store = new Vuex.Store({
@@ -13,7 +13,8 @@ const store = new Vuex.Store({
     message: {
       type: null,
       body: null
-    }
+    },
+    config: config
 
   },
   mutations: {

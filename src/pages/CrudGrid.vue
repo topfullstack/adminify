@@ -2,35 +2,37 @@
 div
   v-layout
     v-flex(md4)
-      v-btn(router,floating, :to="{name: 'create', params: {resource}}", primary, light,v-if="options.create !== false")
-        v-icon(light) add
+      
     v-flex(md8)
-      v-form.row.jr(:inline='true', v-model='filters.model', :fields='filters.fields', @submit='doSearch', submitButtonText='Search', submitButtonIcon='search')
+      v-form.row.jr(:inline='true', v-model='filters.model', v-if="filters.fields", :fields='filters.fields', @submit='doSearch', submitButtonText='Search', submitButtonIcon='search')
   v-card
+    div
+      v-btn(router,fab,absolute,top,small,left,dark,class="green", :to="{name: 'create', params: {resource}}",v-if="options.create !== false")
+        v-icon add
     v-data-table(:headers='columns', :items='items',:total-items="pagination.totalItems",hide-actions, :pagination.sync="pagination", :loading="loading")
       template(slot='items', scope='props')
-        td(:class="column.left? '': 'text-xs-right'", v-for='column in columns') {{getColumnData(props.item, column.value)}}
-        td(v-if='actions !== false', width='180')
-          template(v-for="(value, action) in actions")
-            v-btn(v-if="['edit', 'delete'].indexOf(action) < 0", router,primary,floating,small,dark,:to="{name: action, params: {resource,id:props.item.id}}")
-              v-icon {{action.icon ? action.icon : action}}
-          //- v-btn(v-if="options.edit !== false",router,floating,small,:to="{name: 'edit', params: {resource,id:props.item.id}}")
-            v-icon edit
-          v-btn(v-if="options.edit !== false",floating,primary,small,@click.native="showEdit(props.item)")
-            v-icon(light) edit
-          v-btn(v-if="options.delete !== false",danger,floating,small,@click="remove(props.item)")
-            v-icon delete
-    v-card-row.jc
+        tr
+          td(:class="column.left? '': 'text-xs-right'", v-for='column in columns', v-html="getColumnData(props.item, column.value)")
+          td(v-if='actions !== false', width='180')
+            template(v-for="(value, action) in actions")
+              v-btn(v-if="['edit', 'delete'].indexOf(action) < 0", router,primary,fab,small,dark,:to="{name: action, params: {resource,id:props.item.id}}")
+                v-icon {{action.icon ? action.icon : action}}
+            //- v-btn(v-if="options.edit !== false",router,fab,small,:to="{name: 'edit', params: {resource,id:props.item.id}}")
+              v-icon edit
+            v-btn(v-if="options.edit !== false",dark,fab,primary,small,@click.native="showEdit(props.item)")
+              v-icon() edit
+            v-btn(v-if="options.delete !== false",dark,error,fab,small,@click="remove(props.item)")
+              v-icon() delete
+    .jc
       v-pagination.ma-3(v-model='pagination.page', :length='totalPages', circle)
-  
+
+    
   v-dialog(v-model="isShowEdit", persistent, width="options.inlineEditWidth")
     v-card
-      v-card-row
-        v-card-title {{$t('Edit')}} \#{{currentItem.id}}
-      v-card-row
-        v-card-text
-          v-form(v-model="form.model", v-bind="form", method="patch", :action="resource+'/'+currentItem.id", @success="onSaveEdit")
-      v-card-row(actions)
+      v-card-title {{$t('Edit')}} \#{{currentItem.id}}
+      v-card-text
+        v-form(v-model="form.model", v-bind="form", method="patch", :action="resource+'/'+currentItem.id", @success="onSaveEdit")
+      v-card-actions(actions)
         v-btn(flat, primary, @click.native="isShowEdit = false") {{$t('Close')}}
 </template>
 
@@ -153,11 +155,18 @@ export default {
     getColumnData (row, field) {
       // process fields like `type.name`
       let [l1, l2] = field.split('.')
+      let value = row[l1]
+      let tag = null
       if (l2) {
-        return row[l1] ? row[l1][l2] : null
-      } else {
-        return row[l1]
+        value = row[l1] ? row[l1][l2] : null
       }
+      if (typeof value === 'string' && value.match(/\.(jpg|gif|png|jpeg)\W/i)) {
+        tag = 'img'
+      }
+      if (tag) {
+        value = `<${tag} src="${value}" class="crud-grid-thumb" controls />`
+      }
+      return value
     },
     fetchGrid () {
       return new Promise((resolve, reject) => {
@@ -165,9 +174,9 @@ export default {
           for (let k in data.columns) {
             data.columns[k].text = this.$t(data.columns[k].text)
           }
-          this.columns = data.columns
-          this.actions = data.actions
-          this.filters = data.filters
+          this.columns = data.columns || {}
+          this.actions = data.actions || {}
+          this.filters = data.filters || {}
           this.options = data.options || {}
 
           if (this.options && this.options.sort) {

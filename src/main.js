@@ -7,7 +7,7 @@ global.store = store
 
 import router from './router'
 import i18n from './i18n/'
-import menu from './menu'
+// import menu from './menu'
 import Vuetify from 'vuetify'
 Vue.use(Vuetify)
 import './http'
@@ -67,7 +67,10 @@ new Vue({
   created () {
     // this.$http.get('/users/1').then(({data}) => console.log(data))
     global.$t = this.$t
-    this.$store.commit('setMenu', menu)
+    // fetch menu from server
+    this.$http.get('/menu').then(({data}) => {
+      this.$store.commit('setMenu', data)
+    })
     this.$store.dispatch('checkPageTitle', this.$route.path)
     this.$store.dispatch('checkAuth')
   }

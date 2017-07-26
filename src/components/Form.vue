@@ -1,25 +1,25 @@
 <template lang="pug">
 div
   form(:action='action', @submit.prevent='onSubmit')
-    v-tabs(grow, scroll-bars, v-model='active', light, v-if="groupBy")
+    v-tabs(grow, scroll-bars, v-model='active', dark, v-if="groupBy")
       v-tabs-bar(slot='activators')
         v-tabs-item(v-for='(field, key) in group.parents', :key='key', :href="'tab-' + key", ripple)
         v-tabs-slider
       v-tabs-content(v-for='(fields, key) in group.children', :key='key', :id="'tab-' + key")
         v-card(flat)
           v-card-text
-            v-field(v-for='(field, name) in fields', :key='name', :field="field", v-model="model[name]")
+            v-field(v-for='(field, name) in fields', :key='name', :name="name", :field="field", v-model="model[name]")
 
     v-layout(justify-end, v-bind="{[inline? 'row': 'column']: true}", v-if="!groupBy")
-      v-field(v-for='(field, name) in fields', :key='name', :field="field", v-model="model[name]")
+      v-field(v-for='(field, name) in fields', :key='name', :name="name" :field="field", v-model="model[name]")
         
       v-alert.py-2(error, v-model='hasError')
         div(v-for='error in errors')  {{error.message}}
       slot
       v-flex.pt-2.actions(xs12)
         slot(name='buttons')
-          v-btn.ma-0(primary, light, type='submit') {{$t(submitButtonText)}}
-            v-icon(right, light) {{submitButtonIcon}}
+          v-btn.ma-0(primary, dark, type='submit') {{$t(submitButtonText)}}
+            v-icon(right, dark) {{submitButtonIcon}}
 </template>
 
 <script>

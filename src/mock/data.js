@@ -6,7 +6,7 @@ let data = {
   posts: [],
   comments: []
 }
-for (let i = 1; i <= 100; i++) {
+for (let i = 1; i <= 30; i++) {
   data.users.push(Mock.mock({
     id: i,
     username: '@first',
@@ -32,7 +32,7 @@ for (let i = 1; i <= 6; i++) {
   }))
 }
 
-for (let i = 1; i <= 83; i++) {
+for (let i = 1; i <= 33; i++) {
   data.posts.push(Mock.mock({
     id: i,
     title: '@title',
@@ -46,7 +46,7 @@ for (let i = 1; i <= 83; i++) {
   }))
 }
 
-for (let i = 1; i <= 200; i++) {
+for (let i = 1; i <= 20; i++) {
   data.comments.push(Mock.mock({
     id: i,
     body: '@sentence',

@@ -12,7 +12,7 @@ div()
     v-data-table(:headers='columns', :items='items',:total-items="pagination.totalItems",hide-actions, :pagination.sync="pagination", :loading="loading")
       template(slot='items', scope='props')
         tr
-          td(:class="column.left? '': 'text-xs-right'", v-for='column in columns', v-html="getColumnData(props.item, column.value)")
+          td(:class="column.left? '': 'text-xs-right'", v-for='column in columns', v-html="getColumnData(props.item, column)")
           td(v-if='actions !== false', width='160')
             template(v-for="(value, action) in actions")
               v-btn(v-if="['edit', 'delete'].indexOf(action) < 0", router,primary,fab,small,dark,:to="{name: action, params: {resource,id:props.item.id}}")
@@ -155,13 +155,13 @@ export default {
     },
     getColumnData (row, field) {
       // process fields like `type.name`
-      let [l1, l2] = field.split('.')
+      let [l1, l2] = field.value.split('.')
       let value = row[l1]
       let tag = null
       if (l2) {
         value = row[l1] ? row[l1][l2] : null
       }
-      if (typeof value === 'string' && value.match(/\.(jpg|gif|png|jpeg)\W/i)) {
+      if (field.type === 'image') {
         tag = 'img'
       }
       if (tag) {

@@ -29,7 +29,7 @@
 1. Copy `src/config.sample.js` to `src/config.js`
 1. `npm install`
 1. `npm run dev`
-1. **Remove `line:6 ~ line:9` in `/src/http.js` if you don't need http mock to speed up page loading.**
+1. **Remove `line:6 ~ line:9` in `/src/http.js` to speed up page loading if you don't need http mock.**
 
 > Use `cnpm` instead `npm` in China
 

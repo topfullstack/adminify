@@ -228,6 +228,3 @@ mock.onGet('/settings/form').reply(({ params }) => {
 ## Comunication
 ### Gitter IM 
 [https://gitter.im/vue-adminify/](https://gitter.im/vue-adminify/)
-
-### Wechat Group
-![Wechat Group](public/WechatGroup.png)

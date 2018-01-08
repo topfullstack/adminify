@@ -10,7 +10,7 @@ div()
       v-btn(router,fab,absolute,top,right,dark,class="green", :to="{name: 'create', params: {resource}}",v-if="options.create !== false")
         v-icon add
     v-data-table(:headers='columns', :items='items',:total-items="pagination.totalItems",hide-actions, :pagination.sync="pagination", :loading="loading")
-      template(slot='items', scope='props')
+      template(slot='items', slot-scope='props')
         tr
           td(:class="column.left? '': 'text-xs-right'", v-for='column in columns', v-html="getColumnData(props.item, column)")
           td(v-if='actions !== false', width='160')

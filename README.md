@@ -1,5 +1,7 @@
 # Adminify
 
+## [Deprecated]: Please check [REST-ADMIN](https://github.com/wxs77577/rest-admin) - admin dashboard based on vue 2 and bootstrap v4
+
 [![Join the chat at https://gitter.im/vue-adminify/Lobby](https://badges.gitter.im/vue-adminify/Lobby.svg)](https://gitter.im/vue-adminify/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 - An Admin dashboard based on [Vuetify](https://vuetifyjs.com/) .

@@ -20,8 +20,8 @@ div()
             v-btn(v-if="options.edit !== false",dark,primary,fab,small,:to="{name: 'edit', params: {resource,id:props.item.id}}")
               v-icon edit
             // also you can try this: inline edit
-            // v-btn(v-if="options.edit !== false",dark,fab,success,small,@click.native.stop="showEdit(props.item)")
-            //   v-icon() edit
+            v-btn(v-if="options.edit !== false",dark,fab,success,small,@click.native.stop="showEdit(props.item)")
+              v-icon() edit
             v-btn(v-if="options.delete !== false",fab,small,@click="remove(props.item)")
               v-icon() delete
     .jc

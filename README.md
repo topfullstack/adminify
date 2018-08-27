@@ -43,6 +43,7 @@
 |![3.png](screenshots/3.png)|![4.png](screenshots/4.png)|
 |![5.png](screenshots/5.png)|![6.png](screenshots/6.png)|
 |![7.png](screenshots/7.png)||
+|![](./screenshots/tfs-qrcode.png) Wechat Group|![](./screenshots/tfs-logo.png) Free Videos|
 
 ## Config
 > `src/config.js`
